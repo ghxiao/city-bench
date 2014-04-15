@@ -7,8 +7,16 @@ The benchmarks are created in a simple and extensible way by
 employing a rule-based data transformation language to extract
 instance data from OpenStreetMap (OSM) geospatial data.
 
-Directories in this repository:
+Directories in this repository are:
 
-* cities: pre-generated OWL files for the cities
-* queries: some predefined SPARQL queries
-* tools: data generator
+* [cities](cities): pre-generated OWL files for selected cities
+* [queries](queries) queries: some predefined SPARQL queries
+* [tools](tools): data generation tools, which you can use to create your own benchmark
+
+
+Contacts
+--------
+* [Thomas Eiter](www.kr.tuwien.ac.at/staff/eiter/)
+* [Patrik Schneider](http://www.kr.tuwien.ac.at/staff/patrik/)
+* [Mantas Simkus](http://www.dbai.tuwien.ac.at/staff/simkus/)
+* [Guohui Xiao](http://www.ghxiao.org)
