@@ -10,7 +10,7 @@ instance data from OpenStreetMap (OSM) geospatial data.
 Directories in this repository are:
 
 * [cities](cities): pre-generated OWL files for selected cities
-* [queries](queries) queries: some predefined SPARQL queries
+* [queries](queries) queries: predefined SPARQL queries
 * [tools](tools): data generation tools, which you can use to create your own benchmark
 
 
