@@ -16,7 +16,7 @@ Directories in this repository are:
 
 Contacts
 --------
-* [Thomas Eiter](www.kr.tuwien.ac.at/staff/eiter/)
+* [Thomas Eiter](http://www.kr.tuwien.ac.at/staff/eiter/)
 * [Patrik Schneider](http://www.kr.tuwien.ac.at/staff/patrik/)
 * [Mantas Simkus](http://www.dbai.tuwien.ac.at/staff/simkus/)
 * [Guohui Xiao](http://www.ghxiao.org)
