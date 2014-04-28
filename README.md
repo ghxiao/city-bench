@@ -17,18 +17,22 @@ Directories in this repository are:
 Data Generation Tools
 ---------------------
 
-* `generate.py` is a Python 2.7 script that resembles the extract, transform, and 
+`generate.py` is a Python 2.7 script that resembles the extract, transform, and 
 load (ETL) process of classical data transformation tools.  
 
 ```console
 $ generate.py --mappingFile file.txt  --verbose
 ```
 
-=== Mapping Language Syntax ===
 
+Mapping Language Syntax
+-----------------------
 
-
-
+A mapping file has two seperate sections. The first section is 
+concerned with genernal defintions as connection strings 
+for databases, file names, scripts, or simple contants. 
+The second section contains the mapping axioms, which define a 
+single ETL step.
 
 
 Contacts
