@@ -12,6 +12,23 @@ Directories in this repository are:
 * [cities](cities): pre-generated OWL files for selected cities
 * [queries](queries): predefined SPARQL queries
 * [tools](tools): data generation tools, which you can use to create your own benchmark
+* [mappings](mappings): a collection of mappings to generate the cities instances 
+
+Data Generation Tools
+---------------------
+
+* `generate.py` is a Python 2.7 script that resembles the extract, transform, and 
+load (ETL) process of classical data transformation tools.  
+
+```console
+$ generate.py --mappingFile file.txt  --verbose
+```
+
+=== Mapping Language Syntax ===
+
+
+
+
 
 
 Contacts
