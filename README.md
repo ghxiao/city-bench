@@ -18,7 +18,8 @@ Data Generation Tools
 ---------------------
 
 `generate.py` is a Python 2.7 script that resembles the extract, transform, and 
-load (ETL) process of classical data transformation tools.  
+load (ETL) process of classical data transformation tools. The main input is 
+the mapping file which contains ETL steps.
 
 ```console
 $ generate.py --mappingFile file.txt  --verbose
