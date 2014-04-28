@@ -33,17 +33,16 @@ concerned with general defintions as connection strings
 for databases, file names, scripts, and simple constants. 
 The following definitions are possible:
 
-* Postgres connections 
+* Postgres connections: `CONNECTION id: conn_string`
 
-   The connection strings for Postgres connection have the the syntax `CONNECTION id: conn_string`.
-   We use the standard data source name notation for conn_string.  
+   We assume the standard data source name notation for conn_string, e.g., 
    `CONNECTION id1: HOST=localhost PORT=5432 DBNAME=test USER=postgres PASSWORD=secret`
 
-* Files
+* Files: `FILE id: file_string`
 
-* Python scripts
+* Python scripts: `SCRIPT id: script_string`
 
-* Constants
+* Constants: `CONST id: const_string`
 
 
 The second section contains the mapping axioms, which define a 
