@@ -34,10 +34,9 @@ for databases, file names, scripts, and simple constants.
 The following definitions are possible:
 
 * Postgres connections 
-
-...The connection strings for Postgres connection have the the syntax `CONNECTION id: conn_string`.
-...We use the standard data source name notation for conn_string.  
-...CONNECTION id1: HOST=localhost PORT=5432 DBNAME=test USER=postgres PASSWORD=secret
+⋅⋅⋅The connection strings for Postgres connection have the the syntax `CONNECTION id: conn_string`.
+⋅⋅⋅We use the standard data source name notation for conn_string.  
+⋅⋅⋅CONNECTION id1: HOST=localhost PORT=5432 DBNAME=test USER=postgres PASSWORD=secret
 
 * Files
 
