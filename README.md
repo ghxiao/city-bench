@@ -46,13 +46,15 @@ reference which has to be used in the mapping axioms:
 * Postgres connections: `CONNECTION id: conn_string`
 
    We assume the standard data source name notation for conn_string, e.g., 
+   
    `CONNECTION id1: HOST=localhost PORT=5432 DBNAME=test USER=postgres PASSWORD=secret`
 
 * Files: `FILE id: file_string`
 
-   Any text file can be defined is read line-by-line, where `file_string` has to contain `name=` to define 
-   the file url and optional `delimiter=' '`to define the field separator. E.g., 
-   FILE f1: name=/Users/patrik/test.csv delimiter=';'
+   Any text file can be defined and is read line-by-line, where `file_string` has to contain `name=` to define 
+   the file url and optional `delimiter=' '`to define the field separator, e.g.,
+   `FILE f1: name=/Users/patrik/test.csv delimiter=';'`
+   
 
 * Python scripts: `SCRIPT id: script_string`
 
