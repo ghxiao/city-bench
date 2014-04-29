@@ -54,7 +54,7 @@ reference which has to be used in the mapping axioms:
    Any text file can be defined and is read line-by-line, where `file_string` has to contain `name=` to define 
    the file url and optional `delimiter=' '`to define the field separator, e.g.,
    
-   `FILE f1: name=/Users/patrik/test.csv delimiter=';'`
+   `FILE id2: name=/Users/patrik/test.csv delimiter=';'`
    
 
 * Python scripts: `SCRIPT id: script_string`
