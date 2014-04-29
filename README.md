@@ -26,13 +26,13 @@ PostgreSQL database adapter.
 
 ```console $ generate.py --mappingFile file.txt --verbose ```
 
-`spatialRelationsReader.py` is an example implemenation of a external
+`spatialRelationsReader.py` is an example implemenation of an external
 script which acts as a data source and calculates the spatial
 relations (e.g., contains, next, etc.) between two input RDF files,
-which contain individuals with a location by roles from GeoRSS (e.g.,
-point) assigned. As an external library shapely (https://pypi.python.org/pypi/Shapely) 
-and GDAL is needed (http://trac.osgeo.org/gdal/wiki/GdalOgrInPython).
-
+The files should contain individuals with roles from GeoRSS (e.g.,
+geo:point) assigned to them. As an external library shapely
+(https://pypi.python.org/pypi/Shapely) and GDAL is needed
+(http://trac.osgeo.org/gdal/wiki/GdalOgrInPython).
 
 Mapping Language Syntax
 -----------------------
