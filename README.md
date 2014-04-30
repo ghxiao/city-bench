@@ -58,7 +58,7 @@ reference which has to be used in the mapping axioms:
 
 * Python scripts: `SCRIPT id: script_string`
  
-   Scripts are eiter used as input sources or as a transform step for converting values. `script_string` is simply the url of the script file. Note that for input scripts, the methods `open()` and `read()` have to be implemented. In the read method tuples have to be returned by the python command `yield`. E.g., 
+   Scripts are eiter used as input sources or as a transformation step for converting values. `script_string` is simply the url of the script file. Note that for input scripts, the methods `open()` and `read()` have to be implemented. In the read method tuples have to be returned by the python command `yield`. E.g., 
 
    `SCRIPT id3: ./spatialRelationsReader.py`
 
