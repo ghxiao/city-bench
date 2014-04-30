@@ -45,7 +45,7 @@ reference which has to be used in the mapping axioms:
 
 * Postgres//PostGIS connections: `CONNECTION id: conn_string`
 
-   Connection are used for reading and writing to a (geospatial) database. We assume the standard data source name notation for conn_string, , e.g.,
+   Connection are used for reading and writing to a (geospatial) database. We assume the standard data source name notation for conn_string, e.g.,
    
    `CONNECTION id1: HOST=localhost PORT=5432 DBNAME=test USER=postgres PASSWORD=secret`
 
@@ -72,7 +72,7 @@ reference which has to be used in the mapping axioms:
 The second section contains the mapping axioms, which define a 
 single ETL step, the syntax is an extension of the ontop mapping language 
 (https://github.com/ontop/ontop/wiki/ObdalibObdaTurtlesyntax).
-Each mapping must also contain one ore more mapping axioms.
+Each mapping must also contain one or more mapping axioms.
 A mapping axiom has an id and is defined either as a pair of source and target
 or as the triple of source, transform, target:
 
@@ -91,7 +91,7 @@ to the input source:
    The `connection_id` refers to `CONNECTION` from the defintions. 
 `sql_statement` defines the SQL "Select-From-Where" statement which is
 executed on the refered database.  The result can be processed a set
-of n-tuples, which can be accessed by its index in the `target` step. E.g., 
+of n-tuples, which can be accessed by its index in the `target` step. For instance, 
 
    `source id1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_polygon WHERE leisure = 'park'`
 
