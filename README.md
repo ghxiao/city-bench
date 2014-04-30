@@ -74,7 +74,7 @@ single ETL step, the syntax is an extension of the ontop mapping language
 (https://github.com/ontop/ontop/wiki/ObdalibObdaTurtlesyntax).
 Each mapping must also contain one ore more mapping axioms.
 A mapping axiom has an id and is defined either as a pair of source and target
-or as triple of source, transform, target:
+or as the triple of source, transform, target:
 
 <pre>
 mappingId map_id
@@ -87,6 +87,8 @@ target target_id target_parameter
 to the input source:
 
 * Postgres/PostGIS connections: `connection_id  sql_statement`
+
+   The `connection_id` refers to `CONNECTION` from the defintions. `sql_statement` defines the SQL-query which is run on the refered database. The result can be processed a set of n-tuples, which can be accesed by its index in `target`.
 
 * Text files: `file_id`
 
