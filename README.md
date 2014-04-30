@@ -76,10 +76,12 @@ Each mapping must also contain one ore more mapping axioms.
 A mapping axiom has an id and is defined either as a pair of source and target
 or as triple of source, transform, target:
 
-`mappingId map_id
+<pre>
+mappingId map_id
 source source_id source_parameter
 transform transform_id transform_parameter
-target target_id target_parameter`
+target target_id target_parameter
+</pre>
 
 `source source_id source_parameter` has to be configured according 
 to the input source:
