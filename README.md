@@ -58,7 +58,7 @@ reference which has to be used in the mapping axioms:
 
 * Python scripts: `SCRIPT id: script_string`
  
-   Scripts are eiter used as input sources or as a transformation step for converting values. `script_string` is simply the url of the script file. Note that for input scripts, the methods `open()` and `read()` have to be implemented. In the read method tuples have to be returned by the python command `yield`. E.g., 
+   Scripts are eiter used as input sources or as a transformation step for converting values. `script_string` is simply the url of the script file. For instance, 
 
    `SCRIPT id3: ./spatialRelationsReader.py`
 
@@ -106,12 +106,16 @@ field delimiter. For instance,
 
 * Python scripts:  `script_id parameter`
 
-    Scripts are the main option to extend the benchmark creation i.a. with spatial functions.
+    Scripts are the main option to extend the benchmark creation i.a. with the calculation of spatial relations. Parameter are entered separated by space and can be either a constant text (in double quotes) or variables, which are replaced with on execution. Note that scripts are treated as a data source, hence the methods `open(args)` and `read()` have to be implemented. In the read method n-tuples have to be returned by the python command `yield`.
 
-   `source id3 "contains" id2 id2`
+   `source id3 "contains" id2 id2`, which calls the spatialRelationsReader.py function to calculate the inside relation with the same file as the input
 
 * Constants: `constant c_id1 c_id2 ...`
 
+    Constants are the simplest sources and directly written to the target. It is possible to assign a sequence of constants to a single writing step.
+
+   `source constant id4`
+   
 `target target_id target_parameter` has to be configured according to the 
 output source:
 
