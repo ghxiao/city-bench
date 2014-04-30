@@ -72,7 +72,28 @@ reference which has to be used in the mapping axioms:
 The second section contains the mapping axioms, which define a 
 single ETL step, the syntax is an extension of the ontop mapping language 
 (https://github.com/ontop/ontop/wiki/ObdalibObdaTurtlesyntax).
+Each mapping must also contain one ore more mapping axioms.
+A mapping axiom has an id and is defined either as a pair of source and target
+or as triple of source, transform, target:
 
+`mappingId map_id`
+`source source_id source_parameter`
+`transform transform_id transform_parameter`
+`target target_id target_parameter`
+
+`source source_id source_parameter` has to be configured according 
+to the input source:
+
+* Postgres/PostGIS connections: `connection_id  sql_statement`
+
+* Text files: `file_id`
+
+* Python scripts:  `script_id parameter`
+
+* Constants: `constant const_id1 constid2 ...`
+
+`target target_id target_parameter` has to be configured according to the 
+output source:
 
 
 
