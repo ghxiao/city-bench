@@ -89,7 +89,7 @@ to the input source:
 * Postgres/PostGIS connections: `connection_id  sql_statement`
 
    The `connection_id` refers to `CONNECTION` from the defintions. 
-'sql_statement` defines the SQL "Select-From-Where" statement which is
+`sql_statement` defines the SQL "Select-From-Where" statement which is
 executed on the refered database.  The result can be processed a set
 of n-tuples, which can be accessed by its index in the `target` step. E.g., 
 
