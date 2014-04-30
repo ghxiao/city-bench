@@ -22,7 +22,7 @@ transform, and load (ETL) process of classical data transformation
 tools. The main input is the mapping file which contains ETL steps
 specified in the next section. The only external library need is the
 psycopg2 (https://pypi.python.org/pypi/psycopg2), which is the
-PostgreSQL database adapter.
+PostgreSQL//PostGIS database adapter.
 
 ```console $ generate.py --mappingFile file.txt --verbose ```
 
@@ -43,7 +43,7 @@ for databases, file names, scripts, and simple constants.
 The following definitions are possible, where `id`is the 
 reference which has to be used in the mapping axioms:
 
-* Postgres connections: `CONNECTION id: conn_string`
+* Postgres//PostGIS connections: `CONNECTION id: conn_string`
 
    Connection are used for reading and writing to a (geospatial) database. We assume the standard data source name notation for conn_string, , e.g.,
    
@@ -70,7 +70,10 @@ reference which has to be used in the mapping axioms:
 
 
 The second section contains the mapping axioms, which define a 
-single ETL step.
+single ETL step, the syntax is an extension of the ontop mapping language 
+(https://github.com/ontop/ontop/wiki/ObdalibObdaTurtlesyntax).
+
+
 
 
 Contacts
