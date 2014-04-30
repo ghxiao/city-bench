@@ -88,16 +88,33 @@ to the input source:
 
 * Postgres/PostGIS connections: `connection_id  sql_statement`
 
-   The `connection_id` refers to `CONNECTION` from the defintions. `sql_statement` defines the SQL "Select-From-Where" statement which is run on the refered database. The result can be processed a set of n-tuples, which can be accesed by its index in `target`.
+   The `connection_id` refers to `CONNECTION` from the defintions. 
+'sql_statement` defines the SQL "Select-From-Where" statement which is
+executed on the refered database.  The result can be processed a set
+of n-tuples, which can be accessed by its index in the `target` step. E.g., 
+
+   `source id1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_polygon WHERE leisure = 'park'`
+
 
 * Text files: `file_id`
 
+   Text files are directly linked to the definition in `FILE`. The refered file 
+is read and from each line and a n-tuple is created according to the 
+field delimiter. For instance, 
+
+   `source id2`
+
 * Python scripts:  `script_id parameter`
 
-* Constants: `constant const_id1 constid2 ...`
+    Scripts are the main option to extend the benchmark creation i.a. with spatial functions.
+
+   `source id3 "contains" id2 id2`
+
+* Constants: `constant c_id1 c_id2 ...`
 
 `target target_id target_parameter` has to be configured according to the 
 output source:
+
 
 
 
