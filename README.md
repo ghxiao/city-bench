@@ -88,7 +88,7 @@ to the input source:
 
 * Postgres/PostGIS connections: `connection_id  sql_statement`
 
-   The `connection_id` refers to `CONNECTION` from the defintions. `sql_statement` defines the SQL-query which is run on the refered database. The result can be processed a set of n-tuples, which can be accesed by its index in `target`.
+   The `connection_id` refers to `CONNECTION` from the defintions. `sql_statement` defines the SQL "SELECT-FROM-WHERE" statement which is run on the refered database. The result can be processed a set of n-tuples, which can be accesed by its index in `target`.
 
 * Text files: `file_id`
 
