@@ -119,12 +119,12 @@ of source:
 
 * Postgres/PostGIS relations: `connection_id  sql_statement`
 
-   The `connection_id` is as above, 'sql_statement` defines the SQL "Insert" statement as 
+   The `connection_id` is as in the sources, 'sql_statement` defines the SQL "Insert" statement as 
 a template, which is writes the n-tuples from the source into the database. E.g., 
 
 * Text files: `file_id output_text`
 
-   The `file_id` is also as above, 'output_text` is a textual template, which is written to the file. It can contain as single or multiple lines.  Usually, it will represent triples, which are used for the reasoner. For instance, 
+   The `file_id` is as in the sources, 'output_text` is a textual template, which is written to the file. It can contain as single or multiple lines.  Usually, it will represent triples, which are used for the reasoner. For instance, 
 
 <pre> 
     target f3  :{1} rdf:type tuwt:Playground, owl:NamedIndividual;
