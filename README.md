@@ -117,7 +117,20 @@ of n-tuples, which can be accessed by its index in the `target` step. For instan
 `target target_id target_parameter` has to be configured according to the 
 output source:
 
+* Postgres/PostGIS relations: `connection_id  sql_statement`
 
+   The `connection_id` is as above, 'sql_statement` defines the SQL "Insert" statement as 
+a template, which is writes the n-tuples from the source into the database. E.g., 
+
+* Text files: `file_id output_text`
+
+   The `file_id` is also as above, 'output_text` is a textual template, which is written to the file. It can contain as single or multiple lines.  Usually, it will represent triples, which are used for the reasoner. For instance, 
+
+    <pre> 
+    target f3  :{1} rdf:type tuwt:Playground, owl:NamedIndividual;
+           gml:featurename "{2}"^^xsd:string;
+	   geo:polygon "{3}"^^xsd:string.
+    <pre> 
 
 
 Contacts
