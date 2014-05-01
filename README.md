@@ -128,9 +128,9 @@ a template, which is writes the n-tuples from the source into the database. E.g.
 
     <pre> 
     target f3  :{1} rdf:type tuwt:Playground, owl:NamedIndividual;
-           gml:featurename "{2}"^^xsd:string;
-	   geo:polygon "{3}"^^xsd:string.
-    <pre> 
+               gml:featurename "{2}"^^xsd:string; 
+               geo:polygon "{3}"^^xsd:string.
+    <\pre> 
 
 
 Contacts
