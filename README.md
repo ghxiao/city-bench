@@ -122,6 +122,10 @@ of source:
    The `connection_id` is as in the sources, 'sql_statement` defines the SQL "Insert" statement as 
 a template, which is writes the n-tuples from the source into the database. E.g., 
 
+``` 
+    target osm1 INSERT INTO table1 (subj, pred, obj) VALUES('{1}', '{2}', '{3}');
+```
+
 * Text files: `file_id output_text`
 
    The `file_id` is as in the sources, 'output_text` is a textual template, which is written to the file. It can contain as single or multiple lines.  Usually, it will represent triples, which are used for the reasoner. For instance, 
