@@ -126,11 +126,11 @@ a template, which is writes the n-tuples from the source into the database. E.g.
 
    The `file_id` is also as above, 'output_text` is a textual template, which is written to the file. It can contain as single or multiple lines.  Usually, it will represent triples, which are used for the reasoner. For instance, 
 
-    <pre> 
+<pre> 
     target f3  :{1} rdf:type tuwt:Playground, owl:NamedIndividual;
                gml:featurename "{2}"^^xsd:string; 
                geo:polygon "{3}"^^xsd:string.
-    <\pre> 
+</pre> 
 
 
 Contacts
