@@ -83,8 +83,8 @@ transform transform_id transform_parameter
 target target_id target_parameter
 </pre>
 
-`source source_id source_parameter` has to be configured according 
-to the input source:
+The sources `source source_id source_parameter` have to be configured according 
+to the type of source:
 
 * Postgres/PostGIS relations: `connection_id  sql_statement`
 
@@ -114,8 +114,8 @@ of n-tuples, which can be accessed by its index in the `target` step. For instan
 
    `source constant id4`
    
-`target target_id target_parameter` has to be configured according to the 
-output source:
+The targets `target target_id target_parameter` has to be configured according to the type 
+of source:
 
 * Postgres/PostGIS relations: `connection_id  sql_statement`
 
