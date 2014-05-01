@@ -56,12 +56,10 @@ target f3  :{1} rdf:type tuwt:Shop, owl:NamedIndividual;
 	   geo:point "{3}"^^xsd:string .
 
 mappingId A4
-dependency tuwt:Leisure, tuwt:Amenity
 source s1 contains f2 f1
 target f4 {2} tuwt:isLocatedInside {1} .
 
 mappingId A5
-dependency tuwt:Amenity tuwt:Shop
 source s1 next f1 f3
 target f4 {1}  tuwt:isLocatedNext {2} .
 
