@@ -93,7 +93,7 @@ to the input source:
 executed on the refered database.  The result can be processed a set
 of n-tuples, which can be accessed by its index in the `target` step. For instance, 
 
-   `source id1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_polygon WHERE leisure = 'park'`, reads all the spatial objects from OSM which are parks.
+   `source id1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_polygon WHERE leisure = 'park'`, reads all the parks (spatial objects) from OSM.
 
 
 * Text files: `file_id reg_exp`
