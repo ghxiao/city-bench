@@ -1,7 +1,7 @@
 city-bench
 ==========
 
-`city-bench` is a publicly available geographic datasets for OBDA systems.
+`city-bench` is a publicly available collection of geographic datasets for OBDA systems.
 
 The benchmarks are created in a simple and extensible way by
 employing a rule-based data transformation language to extract
