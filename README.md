@@ -104,7 +104,7 @@ of n-tuples, which can be accessed by its index in the `target` step. For instan
 
 * Python scripts:  `script_id parameter`
 
-    Scripts are the main option to extend the benchmark creation i.a. with the calculation of spatial relations. Parameter are entered separated by space and can be either a constant text (in double quotes) or variables, which are replaced with the corresponding value on execution. Note that scripts are treated as a data source, hence the methods `open(args)` and `read()` have to be implemented. In the read method n-tuples have to be returned by the python command `yield`.
+    Scripts are the main option to extend the benchmark creation i.a. with the calculation of spatial relations. `parameter` are entered separated by space and can be either constant texts (in double quotes) or variables, which are replaced with the corresponding value on run time. Note that scripts are treated as a data source, hence the methods `open(parameter)` and `read()` have to be implemented.  In the read method n-tuples have to be returned by the python command `yield`.
 
    `source id3 "contains" id2 id2`, which calls the spatialRelationsReader.py function to calculate the inside relation with the same file as the input
 
