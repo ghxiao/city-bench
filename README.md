@@ -45,7 +45,7 @@ reference which has to be used in the mapping axioms:
 
 * Postgres//PostGIS connections: `CONNECTION id: conn_string`
 
-   Connection are used for reading and writing to a (geospatial) database. We assume the standard data source name notation for conn_string, e.g.,
+   Connection are used for reading and writing from/to (geospatial) databases. We assume the standard data source name notation for conn_string, e.g.,
    
    `CONNECTION id1: HOST=localhost PORT=5432 DBNAME=test USER=postgres PASSWORD=secret`
 
