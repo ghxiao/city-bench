@@ -43,7 +43,7 @@ for databases, file names, scripts, and simple constants.
 The following definitions are possible, where `id`is the 
 reference which has to be used in the mapping axioms:
 
-* Postgres//PostGIS connections: `CONNECTION id: conn_string`
+* Postgres/PostGIS connections: `CONNECTION id: conn_string`
 
    Connection are used for reading and writing from/to (geospatial) databases. We assume the standard data source name notation for conn_string, e.g.,
    
@@ -126,11 +126,11 @@ a template, which is writes the n-tuples from the source into the database. E.g.
 
    The `file_id` is as in the sources, 'output_text` is a textual template, which is written to the file. It can contain as single or multiple lines.  Usually, it will represent triples, which are used for the reasoner. For instance, 
 
-<pre> 
+``` 
     target f3  :{1} rdf:type tuwt:Playground, owl:NamedIndividual;
                gml:featurename "{2}"^^xsd:string; 
                geo:polygon "{3}"^^xsd:string.
-</pre> 
+```
 
 
 Contacts
