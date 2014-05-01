@@ -114,7 +114,7 @@ of n-tuples, which can be accessed by its index in the `target` step. For instan
 
    `source constant id4`
    
-The targets `target target_id target_parameter` has to be configured according to the type 
+The targets `target target_id target_parameter` have to be configured according to the type 
 of source:
 
 * Postgres/PostGIS relations: `connection_id  sql_statement`
