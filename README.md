@@ -86,22 +86,20 @@ target target_id target_parameter
 `source source_id source_parameter` has to be configured according 
 to the input source:
 
-* Postgres/PostGIS connections: `connection_id  sql_statement`
+* Postgres/PostGIS relations: `connection_id  sql_statement`
 
    The `connection_id` refers to `CONNECTION` from the defintions. 
 `sql_statement` defines the SQL "Select-From-Where" statement which is
 executed on the refered database.  The result can be processed a set
 of n-tuples, which can be accessed by its index in the `target` step. For instance, 
 
-   `source id1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_polygon WHERE leisure = 'park'`
+   `source id1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_polygon WHERE leisure = 'park'`, reads all the spatial objects from OSM which are parks.
 
 
-* Text files: `file_id`
+* Text files: `file_id reg_exp`
 
-   Text files are directly linked to the definition in `FILE`. The refered file 
-is read and from each line and a n-tuple is created according to the 
-field delimiter. For instance, 
-
+   Text files are directly linked to the definition in `FILE`. The refered file is read line-by-line resulting in an n-tuple base on the field delimiter. If `reg_exp` is empty all lines are returned, otherwise only the line which fullfile the regular expression are returned. For instance, 
+   
    `source id2`
 
 * Python scripts:  `script_id parameter`
