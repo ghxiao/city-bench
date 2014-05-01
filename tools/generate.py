@@ -256,22 +256,50 @@ class FileWriter(Writer):
 
     def write(self, tuple):
         
-        self.textfile.write(tuple + '\n')
+    	try:
+        	self.textfile.write(tuple + '\n')
+
+        except Exception, e:
+            print e
         
 
     def close(self):
 
         self.textfile.closed
 
+class ConsoleWriter(Writer):
+
+    def write(self, tuple):
+    	
+    	print tuple
 
 
-#class DatabaseWriter(Writer):
+class DatabaseWriter(Writer):
 
-    #def open(self):
+    conn_gis = None
+    cur_gis = None
+
+    def open(self):
+
+        # Connect to a PostGIS database and open a cursor to perform database operations
+        self.conn_gis = psycopg2.connect(self.connectionString)
+        # Set DB parameter
+        self.conn_gis.set_client_encoding('UTF8')
+        self.cur_gis = self.conn_gis.cursor()
             
-    #def write(self, tuple):
+    def write(self, tuple):
+    	try:
+    		#print tuple
+    		self.cur_gis.execute(tuple)
+    		self.conn_gis.commit()
+    		
+        except Exception, e:
+            print e
 
-    #def close(self):
+    def close(self):
+
+        self.cur_gis.close()
+        self.conn_gis.close()
     
         
 def main(argv):
@@ -339,7 +367,7 @@ def runMapping(mapObj):
         dataReader = ConstantReader(mapObj, dictConstants)
         dataReader.open()
         
-    # Create DB/File writers (load)
+    # Create DB/File/... writers for the output
     if mapObj.targetId in dictConnections:
 
         dataWriter = DatabaseWriter(mapObj, dictConnections[mapObj.targetId])
@@ -349,7 +377,10 @@ def runMapping(mapObj):
 
         dataWriter = FileWriter(mapObj, dictFiles[mapObj.targetId])
         dataWriter.open()
-        
+    
+    # Only constant ID for targets, writes to stdout    
+    elif mapObj.targetId =="stdout":
+		dataWriter = ConsoleWriter()
 
     if dataReader == None:
         print mapObj.id + ": Reader can not be created"
@@ -368,7 +399,7 @@ def runMapping(mapObj):
             posID = tupleOut.find(repID)
             posValue = str(tuple[i])
             if posID > -1:
-                posValue = posValue.replace('"', '')  # Clean up data and remove double quote, as it causes with some turtle readers
+                posValue = posValue.replace('"', '').replace("'", '')  # Clean up data and remove double quote, as it causes with some turtle readers
                 tupleOut = tupleOut.replace(repID, posValue)
             
         # Write (only if it has some text)
