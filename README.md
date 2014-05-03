@@ -51,7 +51,7 @@ Mapping Language Syntax
 A mapping file has two seperate sections. The first section is 
 concerned with general defintions as connection strings 
 for databases, file names, scripts, and simple constants. 
-A line is ignored and treated a comment if it starst with #.
+A line is ignored and treated a comment if it starts with `#`.
 
 The following definitions are available, where `id` is the  
 reference which has to be used in the mapping axioms:
