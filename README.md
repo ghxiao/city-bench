@@ -27,12 +27,23 @@ PostgreSQL//PostGIS database adapter.
 ```console $ generate.py --mappingFile file.txt --verbose ```
 
 `spatialRelationsReader.py` is an example implemenation of an external
-script which acts as a data source and calculates the spatial
-relations (e.g., contains, next, etc.) between two input RDF files,
-The files should contain individuals with roles from GeoRSS (e.g.,
+script, which acts as a data source and calculates the spatial
+relations (e.g., contains, next, etc.) between two input RDF files.
+The files have to contain individuals with roles from GeoRSS (e.g.,
 geo:point) assigned to them. As an external library shapely
 (https://pypi.python.org/pypi/Shapely) and GDAL is needed
-(http://trac.osgeo.org/gdal/wiki/GdalOgrInPython).
+(http://trac.osgeo.org/gdal/wiki/GdalOgrInPython). The parameter 
+for the script are `relation file1 file2 distance`.
+
+`streetGraphReader.py` is another implementation of a  external script
+reader. In this reader the input are objects which represent roads in OSM.
+From the objects and their geometry (e.g. geo:line) all the nodes and 
+edges of the street graph are extracted. The parameter 
+for the script are `type` to chose between nodes/edges and `file`.
+
+
+`transformOSMConcepts.py` is a simple tranformation script for 
+converting OSM categories (e.g., restaurant) to concepts.
 
 Mapping Language Syntax
 -----------------------
@@ -40,7 +51,9 @@ Mapping Language Syntax
 A mapping file has two seperate sections. The first section is 
 concerned with general defintions as connection strings 
 for databases, file names, scripts, and simple constants. 
-The following definitions are possible, where `id`is the 
+A line is ignored and treated a comment if it starst with #.
+
+The following definitions are available, where `id` is the  
 reference which has to be used in the mapping axioms:
 
 * Postgres/PostGIS connections: `CONNECTION id: conn_string`
@@ -69,12 +82,11 @@ reference which has to be used in the mapping axioms:
    `CONST id4: @prefix  geo: <http://www.georss.org/georssl/>`
 
 
-The second section contains the mapping axioms, which define a 
+The second section contains the mapping axioms. An axiom defines a 
 single ETL step, the syntax is an extension of the ontop mapping language 
 (https://github.com/ontop/ontop/wiki/ObdalibObdaTurtlesyntax).
-Each mapping must also contain one or more mapping axioms.
-A mapping axiom has an id and is defined either as a pair of source and target
-or as the triple of source, transform, target:
+A mapping axiom has an id and is defined either as a pair of `source` and `target`
+or as the triple of `source`, `transform`, and `target`:
 
 <pre>
 mappingId map_id
@@ -106,7 +118,7 @@ of n-tuples, which can be accessed by its index in the `target` step. For instan
 
     Scripts are the main option to extend the benchmark creation i.a. with the calculation of spatial relations. `parameter` are entered separated by space and can be either constant texts (in double quotes) or variables, which are replaced with the corresponding value on run time. Note that scripts are treated as a data source, hence the methods `open(parameter)` and `read()` have to be implemented.  In the read method n-tuples have to be returned by the python command `yield`.
 
-   `source id3 "contains" id2 id2`, which calls the spatialRelationsReader.py function to calculate the inside relation with the same file as the input
+   `source id3 "contains" id2 id2`, which calls the spatialRelationsReader.py script to calculate the "contains" relation with the same file as the input
 
 * Constants: `constant c_id1 c_id2 ...`
 
@@ -135,6 +147,10 @@ a template, which is writes the n-tuples from the source into the database. E.g.
                gml:featurename "{2}"^^xsd:string; 
                geo:polygon "{3}"^^xsd:string.
 ```
+
+* Console: `stdout output_text`
+   For testing purposes, writing to the console is achieved by using `stdout`
+
 
 
 Contacts
