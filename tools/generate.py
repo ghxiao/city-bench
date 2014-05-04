@@ -63,16 +63,16 @@ class Reader:  #__metaclass__ = ABCMeta
     
 
     def open(self):
-        # Here comes the open
-        print "Source opened"
+        # Here comes the open. This does not always be overriten
+        a = 0
 
     def read(self):
         # Here comes the read and yield
-        print "Source read"
+        raise NotImplementedError
 
     def close(self):
-        # Here comes the close
-        print "Source closed"
+        # Here comes the close. This does not always be overriten
+        a = 0
         
 
 class FileReader(Reader):
@@ -161,7 +161,7 @@ class ScriptReader(Reader):
 
     def open(self, input):
 
-        self.scriptReader = self.load_from_file(self.connectionString)
+        self.scriptReader = ScriptReader.load_from_file(self.connectionString, "CustomScriptReader")
         self.scriptReader.open(input)
  
         
@@ -174,10 +174,10 @@ class ScriptReader(Reader):
     def close(self):
 
         scriptReader.close()
-        
-    def load_from_file(self, filepath):
+    
+    @staticmethod    
+    def load_from_file(filepath, expected_class): # self, 
         class_inst = None
-        expected_class = "CustomScriptReader"
 
         mod_name,file_ext = os.path.splitext(os.path.split(filepath)[-1])
         #sReader = spatialRelationsReader.CustomScriptReader()
@@ -231,14 +231,15 @@ class Writer:
         self.connectionString = connection
 
     def open(self):
-        print "Target opened"
-            
+		# Here comes the open. This does not always be overriten
+		a = 0            
     def write(self, tuple):
-        print "Target written"
-        
+		# # Here comes the write.
+		raise NotImplementedError
+		     
     def close(self):
-        print "Target closed"
-        
+		# Here comes the close. This does not always be overriten
+		a = 0        
         
 class FileWriter(Writer):
 
@@ -269,9 +270,13 @@ class FileWriter(Writer):
 
 class ConsoleWriter(Writer):
 
-    def write(self, tuple):
+	def __init__(self):
+		# Nothing to do
+		a = 0
+
+	def write(self, tuple):
     	
-    	print tuple
+		print tuple
 
 
 class DatabaseWriter(Writer):
@@ -288,11 +293,11 @@ class DatabaseWriter(Writer):
         self.cur_gis = self.conn_gis.cursor()
             
     def write(self, tuple):
-    	try:
-    		#print tuple
-    		self.cur_gis.execute(tuple)
-    		self.conn_gis.commit()
-    		
+        try:
+        	#print tuple
+        	self.cur_gis.execute(tuple)
+        	self.conn_gis.commit()
+
         except Exception, e:
             print e
 
@@ -353,12 +358,15 @@ def runMapping(mapObj):
         tempArgs = scriptInput.split(' ')
 
         for i in range(len(tempArgs)):
-            #if tempArgs[i].find("{") >= 0:
             tempID = tempArgs[i]
-            #tempID = tempID[1:len(tempID)-1]
-            if tempID in dictFiles:
-                (fileName, sep) = FileReader.extractFileNameSeparator(dictFiles[tempID])
-                scriptInput = scriptInput.replace(tempArgs[i], fileName)
+            if tempArgs[i].find('\"') >= 0:
+            	scriptInput = scriptInput.replace('\"', '') # Input is a constant, just replace parentese
+            else:
+            	if tempID in dictFiles:
+                	(fileName, sep) = FileReader.extractFileNameSeparator(dictFiles[tempID])
+                	scriptInput = scriptInput.replace(tempArgs[i], fileName)
+        
+        print scriptInput
         
         dataReader.open(scriptInput)
         
@@ -387,17 +395,33 @@ def runMapping(mapObj):
         return
 
             
-    # Iterate with reader, using yield
-    for tuple in dataReader.read():
+    # Main part: Iterate with reader, transform, and write to writer
+    for tupleIn in dataReader.read():
 
-        #print tuple
-        #Replace values of read tuples in result string
+        #print tuple 
+        # Transfrom step, if a script is defined
+        if len(mapObj.transformId) > 0:
+        	transformScriptUrl = dictScripts[mapObj.transformId]
+        	transformScript = ScriptReader.load_from_file(transformScriptUrl, "CustomScriptTransform")
+        	
+        	# Call script
+        	transformScript.open(mapObj.transformQuery.replace('"', ''))
+        	tupleTemp = transformScript.map(tupleIn)
+        	transformScript.close()
+        	
+        	# If it returns None, we have to ignore this one 
+        	if tupleTemp == None:
+        		continue
+        	else:
+        		tupleIn = tupleTemp
+        
+        #Replace values of read tuples in result tuple
         tupleOut = mapObj.targetOutput
         
-        for i in range(len(tuple)):
+        for i in range(len(tupleIn)):
             repID = '{' + str(i+1) + '}'  # We assume that the indexes start with 
             posID = tupleOut.find(repID)
-            posValue = str(tuple[i])
+            posValue = str(tupleIn[i])
             if posID > -1:
                 posValue = posValue.replace('"', '').replace("'", '')  # Clean up data and remove double quote, as it causes with some turtle readers
                 tupleOut = tupleOut.replace(repID, posValue)
@@ -409,8 +433,6 @@ def runMapping(mapObj):
 
 
     dataWriter.close()
-    dataWriter.open()
-
 
         
 def createConnections(lines):
@@ -418,6 +440,11 @@ def createConnections(lines):
         # Read mapping file for connections, files, scripts, prefix, base, imports
         for i in range(len(lines)):
             nline = lines[i].rstrip()
+            
+            # Ignore lines which start with hash
+            tmpLine =  nline.lstrip()
+            if len(tmpLine) > 0 and tmpLine[0] == '#':
+            	continue
             
             posConn = nline.find("CONNECTION")
             if posConn > -1: # CONNECTION osm1: host=localhost port=5432 dbname=osm_vienna user=postgres password=ps
@@ -448,8 +475,12 @@ def createMappings(lines):
                                         
         for i in range(len(lines)):
             nline = lines[i]
-            #print nline
             
+             # Ignore lines which start with hash
+            tmpLine =  nline.lstrip()
+            if len(tmpLine) > 0 and tmpLine[0] == '#':
+            	continue
+           
             # The mappingID is the indicator, when a single mapping is finished, new id -> new mapping
             posImport = nline.find("mappingId")
             if posImport > -1:

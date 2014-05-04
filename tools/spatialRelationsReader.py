@@ -20,42 +20,42 @@ geo_point = "geo:point"
 geo_line = "geo:line"
 geo_poly = "geo:polygon"
 
-#prefix_osm_points = "110"
-
 class CustomScriptReader():
 
     relation = ""
     role = ""
     input1 = ""
     input2 = ""
+    distance = Buffer_Distance_Iso
 
     def open(self, parameter):
 
         vals = parameter.split(' ')
 
         self.relation = vals[0]
-        #self.role = vals[1]
         self.input1 = vals[1]
-        self.input2 = vals[2]
+        
+        if len(vals) > 2:
+        	self.input2 = vals[2]
+
+        if len(vals) > 3:
+        	self.distance = float(vals[3])
+
 
         if self.input2 is None or len(self.input2) == 0: self.input2 = self.input1
-
 
     def read(self):
 
         #results1 = extract_id_geo(input1)
         #results2 = extract_id_geo(input2)
 
-        #for i in range(len(results1)-1):
-        print self.input1, self.input2
         for nline1 in self.extract_id_geo(self.input1):
-
-            #nline1 = results1[i]
+           
             temp1 = nline1.split('|')
             obj_id1 = temp1[0]
             obj_geo1 = temp1[1]
 
-            print "Current: ",  obj_id1
+            print "Current 1: ",  obj_id1
             #geo1 = ogr.CreateGeometryFromWkt(obj_geo1) # res.wkt
             geo1 = loads(obj_geo1)                                 
             if geo1 is None: continue
@@ -73,16 +73,17 @@ class CustomScriptReader():
                 geo2 = loads(obj_geo2)            
                 if geo2 is None: continue
 
-                #print "Current: ", obj_id1, obj_id2
+                #print "Current 2: ", obj_id1, obj_id2
 
                 # Heuristics to speed up, only consider objects which are in a radius of 100 km (for large objects take the upper left corner)
                 lon1 = 0.0; lat1 = 0.0; lon2 = 0.0; lat2 = 0.0;
                 (lat1, lon1, maxx1, maxy1) = geo1.bounds
                 (lat2, lon2, maxx2, maxy2) = geo2.bounds
 
+                # Everything which is more then 20km of eachother is ignored
                 distance = self.haversine(lon1, lat1, lon2, lat2)
-                #print distance
-                if distance > 50: continue
+                if distance > 20:   
+                	continue
 
                 if self.relation == "contains":
                     #print geo1.bounds, geo2.bounds
@@ -108,8 +109,10 @@ class CustomScriptReader():
                     if geo1.touches(geo2):
                         yield (obj_id1, obj_id2)
                 elif self.relation == "next":
-                    temp_geo = geo1.buffer(Buffer_Distance_Iso) #  Buffer_Distance_Iso, Buffer_Quadrant_Segments)¶
+                    
+                    temp_geo = geo1.buffer(self.distance) #  Buffer_Distance_Iso, Buffer_Quadrant_Segments)¶
                     if temp_geo.contains(geo2): # Need to change this
+                        print distance
                         yield (obj_id1, obj_id2)
 
     #def close():
@@ -135,12 +138,11 @@ class CustomScriptReader():
 
     def extract_id_geo(self, file_name):
 
-        #results = []
-
         with open(file_name, 'r') as f1:
 
             actID = actGeo = ""
             lines = f1.readlines()
+             
             for i in range(len(lines)-1):
                 nline = lines[i]
 
