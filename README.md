@@ -36,7 +36,7 @@ geo:point) assigned to them. As an external library shapely
 for the script are `relation file1 file2 distance`.
 
 `streetGraphReader.py` is another implementation of a  external script
-reader. In this reader the input are objects which represent roads in OSM.
+reader. In this reader the input are objects  represening different types of in OSM.
 From the objects and their geometry (e.g. geo:line) all the nodes and 
 edges of the street graph are extracted. The parameter 
 for the script are `type` to chose between nodes/edges and `file`.
@@ -95,8 +95,8 @@ transform transform_id transform_parameter
 target target_id target_parameter
 </pre>
 
-The sources `source source_id source_parameter` have to be configured according 
-to the type of source:
+According to the kind of source, it has to be configured accordingly, where 
+ `source_id` refers to the defintion:
 
 * Postgres/PostGIS relations: `connection_id  sql_statement`
 
@@ -110,9 +110,9 @@ of n-tuples, which can be accessed by its index in the `target` step. For instan
 
 * Text files: `file_id reg_exp`
 
-   Text files are directly linked to the definition in `FILE`. The refered file is read line-by-line resulting in an n-tuple base on the field delimiter. If `reg_exp` is empty all lines are returned, otherwise only the line which fullfile the regular expression are returned. For instance, 
+   Text files are directly linked to the definition in `FILE`. The refered file is read line-by-line resulting in an n-tuple base on the field delimiter. If `reg_exp` is empty all lines are returned, otherwise only the line fulfilling the regular expression are returned. For instance, 
    
-   `source id2`
+   `source id2  (?)POINT\(1[^>]*\)}`, extracts all lines, which contain a "Point" geometry.
 
 * Python scripts:  `script_id parameter`
 
@@ -149,7 +149,7 @@ a template, which writes the n-tuples from the source into the database. E.g.,
 ```
 
 * Console: `stdout output_text`
-   For testing purposes, writing to the console is achieved by using `stdout`
+   For testing purposes, writing to the console is achieved by using `stdout`.
 
 
 

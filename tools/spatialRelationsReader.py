@@ -30,16 +30,16 @@ class CustomScriptReader():
 
     def open(self, parameter):
 
-        vals = parameter.split(' ')
+        vals = parameter.split('" ')
 
-        self.relation = vals[0]
-        self.input1 = vals[1]
+        self.relation = vals[0].replace('\"', '')
+        self.input1 = vals[1].replace('\"', '')
         
         if len(vals) > 2:
-        	self.input2 = vals[2]
+        	self.input2 = vals[2].replace('\"', '')
 
         if len(vals) > 3:
-        	self.distance = float(vals[3])
+        	self.distance = float(vals[3].replace('\"', ''))
 
 
         if self.input2 is None or len(self.input2) == 0: self.input2 = self.input1
@@ -55,7 +55,7 @@ class CustomScriptReader():
             obj_id1 = temp1[0]
             obj_geo1 = temp1[1]
 
-            print "Current 1: ",  obj_id1
+            print "Current: ",  obj_id1
             #geo1 = ogr.CreateGeometryFromWkt(obj_geo1) # res.wkt
             geo1 = loads(obj_geo1)                                 
             if geo1 is None: continue
@@ -112,7 +112,7 @@ class CustomScriptReader():
                     
                     temp_geo = geo1.buffer(self.distance) #  Buffer_Distance_Iso, Buffer_Quadrant_Segments)¶
                     if temp_geo.contains(geo2): # Need to change this
-                        print distance
+                        #print distance
                         yield (obj_id1, obj_id2)
 
     #def close():
