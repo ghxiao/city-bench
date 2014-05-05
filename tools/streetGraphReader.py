@@ -34,7 +34,8 @@ class CustomScriptReader():
         dictNodes = {}
 
         #for i in range(len(results1)-1):
-        print self.input1, self.input2
+        #print self.input1, self.input2
+        
         for nline1 in self.extract_id_geo(self.input1):
 
             #nline1 = results1[i]

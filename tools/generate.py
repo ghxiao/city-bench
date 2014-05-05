@@ -355,18 +355,24 @@ def runMapping(mapObj):
 
         dataReader = ScriptReader(mapObj, dictScripts[mapObj.sourceId])
         scriptInput = mapObj.sourceQuery
-        tempArgs = scriptInput.split(' ')
+        tempArgs = scriptInput.split('" ')
 
         for i in range(len(tempArgs)):
-            tempID = tempArgs[i]
-            if tempArgs[i].find('\"') >= 0:
-            	scriptInput = scriptInput.replace('\"', '') # Input is a constant, just replace parentese
-            else:
-            	if tempID in dictFiles:
-                	(fileName, sep) = FileReader.extractFileNameSeparator(dictFiles[tempID])
-                	scriptInput = scriptInput.replace(tempArgs[i], fileName)
+            tempID = tempArgs[i].replace('\"', '')
+            #if tempArgs[i].find('\"') >= 0:
+            #	scriptInput = scriptInput.replace('\"', '') # Input is a constant, just replace parentese
+            #else:
+            # Replace with file urls
+            if tempID in dictFiles:
+                (fileName, sep) = FileReader.extractFileNameSeparator(dictFiles[tempID])
+                scriptInput = scriptInput.replace(tempArgs[i], fileName)
+
+            # Replace with dabase connections
+            if tempID in dictConnections:
+                connStr = dictConnections[tempID]
+                scriptInput = scriptInput.replace(tempArgs[i],  connStr)
         
-        print scriptInput
+        #print scriptInput
         
         dataReader.open(scriptInput)
         
