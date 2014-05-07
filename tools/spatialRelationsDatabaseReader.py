@@ -6,7 +6,7 @@ import optparse
 from math import * 
 import psycopg2
 
-Buffer_Distance_Iso = 0.01 # 100m
+Buffer_Distance_Iso = 0.005 # 0.005; 0.0025;  0.001 ;0.0005 (50m)   
 
 class CustomScriptReader():
 
@@ -38,7 +38,7 @@ class CustomScriptReader():
         self.table2Cond = vals[5].replace('\"', '')
 
         if len(vals) > 6:
-        	self.distance = float(vals[6]).replace('\"', '')
+        	self.distance = float(vals[6].replace('\"', ''))
 
          # Connect to a PostGIS database and open a cursor to perform database operations
         self.conn_gis = psycopg2.connect(self.connection)
