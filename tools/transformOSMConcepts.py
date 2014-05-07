@@ -5,14 +5,6 @@ import getopt, sys
 import optparse
 from math import * 
 
-
-gml_name = "gml:featurename"
-rdf_type = "rdf:type"
-geo_point = "geo:point"
-geo_line = "geo:line"
-geo_poly = "geo:polygon"
-
-
 class CustomScriptTransform():
 
 	group = ""
@@ -52,6 +44,28 @@ class CustomScriptTransform():
 				
 			return tuple(tempList)
 		
+		if self.group == "restaurant_role":
+		
+			sn = tempList[self.position].lower() 
+			obj_name = ""
+			if sn.find("curry")  >= 0 or sn.find("tandoor") >= 0 or sn.find("indian") >= 0: obj_name = "IndianCuisine"
+			elif (sn.find("gasthaus") >= 0) or (sn.find("stuben") >= 0) or (sn.find("gasthof") >= 0) or sn.find("bier") >= 0 or sn.find("wirt")  >= 0 or sn.find("keller")  >= 0 or sn.find("hof")  >= 0 or sn.find("hotel")  >= 0 or sn.find("zum ")  >= 0: obj_name = "GermanCuisine"
+			elif sn.find("beisl")  >= 0 or sn.find("schnitzel")  >= 0 or sn.find("wien")  >= 0 or sn.find("heuriger")  >= 0 : obj_name = "AustrianCuisine"
+			elif sn.find("bistro")  >= 0 or sn.find("brasserie") >= 0 or sn.find("chez ") >= 0 or sn.find("les ") >= 0: obj_name = "FrenchCuisine"
+			elif sn.find("pizza")  >= 0 or sn.find("pizze") >= 0 : obj_name = "ItalianCuisine"
+			elif sn.find("asia")  >= 0 or sn.find("wok")  >= 0  or sn.find("thai")  >= 0:  obj_name = "AsianCuisine"
+			elif sn.find("china")  >= 0 or sn.find("chine")  >= 0 or sn.find("great wall")  >= 0 or sn.find("hong")  >= 0: obj_name = "ChineseCuisine"
+			elif sn.find("sushi")  >= 0 or sn.find("tokyo")  >= 0: obj_name = "JapaneseCuisine"
+			elif sn.find("steak")  >= 0 or sn.find("grill")  >= 0 : obj_name = "AmericanCuisine"
+			elif sn.find("pub")  >= 0 or sn.find("fish")  >= 0  or sn.find("inn")  >= 0 or sn.find("river")  >= 0 : obj_name = "EnglishCuisine"
+			elif sn.find("ristorante") >= 0 or sn.find("casa") >= 0 or sn.find("trattoria")  >= 0  or sn.find("osteria")  >= 0 or sn.find("trattoria")  >= 0  or sn.find("il ") >= 0 or sn.find("da ") >= 0 or sn.find("la ") >= 0: obj_name = "ItalianCuisine"
+			
+			if len(obj_name)==0:
+				return None
+			else:
+				tempList[self.position] = obj_name
+				return tuple(tempList)
+			
 		return None
 
 
