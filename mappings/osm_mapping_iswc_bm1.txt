@@ -10,22 +10,22 @@ SCRIPT s1: /Users/patrik/ITS/city-bench/tools/spatialRelationsDatabaseReader.py
 
 
 mappingId A0
-source s1 "osm1" "within" "planet_osm_point" "planet_osm_polygon" "t1.amenity IS NOT NULL" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) "
+source s1 "osm1" "within" "planet_osm_point" "planet_osm_polygon" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL)" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL)"
 target f4 {1} tuwt:isLocatedInside {2} .
 
 mappingId A1
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity IS NOT NULL" "t2.shop IS NOT NULL" "0.0005"
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL)" "(t2.amenity IS NOT NULL or t2.shop IS NOT NULL)" "0.0005"
 target f5 :{1} tuwt:isLocatedNext :{2} .
 
 mappingId A2
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity IS NOT NULL" "t2.shop IS NOT NULL" "0.001"
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL)" "(t2.amenity IS NOT NULL or t2.shop IS NOT NULL)" "0.001"
 target f6 :{1} tuwt:isLocatedNext :{2} .
 
 mappingId A3
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity IS NOT NULL" "t2.shop IS NOT NULL" "0.0025"
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL)" "(t2.amenity IS NOT NULL or t2.shop IS NOT NULL)" "0.0025"
 target f7 :{1} tuwt:isLocatedNext :{2} .
 
 mappingId A4
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity IS NOT NULL" "t2.shop IS NOT NULL" "0.005"
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL)" "(t2.amenity IS NOT NULL or t2.shop IS NOT NULL)" "0.005"
 target f8 :{1} tuwt:isLocatedNext :{2} .
 
