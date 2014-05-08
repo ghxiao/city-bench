@@ -1,4 +1,5 @@
-# q5(x) :- Amenity(x), inside(x, u), Leisure(u), next(u, z), Leisure(z), contains(z, x)
+# q5(x) :- Amenity(x), next(x, y), Leisure(y), intersect(y, z), Leisure(z), next(x, z)
+
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
@@ -14,9 +15,9 @@ PREFIX : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
 SELECT ?x
 WHERE { 
     ?x a tuwt:Amenity .
-    ?x tuwt:isLocatedInside ?u .
-    ?u a tuwt:Leisure .
-    ?u tuwt:isLocatedNext ?z .
+    ?x tuwt:isLocatedNext ?y .
+    ?y a tuwt:Leisure .
+    ?y tuwt:isLocatedIntersect ?z .
     ?z a tuwt:Leisure .
-    ?z tuwt:contains ?x .
+    ?x tuwt:isLocatedNext ?z .
 }

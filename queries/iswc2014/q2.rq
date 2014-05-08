@@ -1,4 +1,4 @@
-# q(x,y,z) - Shop(x), isLocatedNext(x,y), Amenity(y), isLocatedInside(y,z), Leisure(z)
+# q2(x,y,z) <- Shop(x), hasOperator(x, w), SupermarketOp(w), next(x, y), Amenity(y), inside(y, z), Leisure(z)
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -15,6 +15,8 @@ PREFIX : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
 SELECT ?x ?y ?z
 WHERE { 
     ?x a  tuwt:Shop . 
+    ?x tuwt:hasOperator ?w .
+    ?w a tuwt:SupermarketOp .
     ?x tuwt:isLocatedNext ?y .
     ?y a tuwt:Amenity .
     ?y tuwt:isLocatedInside ?z .

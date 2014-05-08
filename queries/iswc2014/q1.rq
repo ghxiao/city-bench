@@ -1,4 +1,4 @@
-# q(y,z) -  Amenity(y), isLocatedInside(y,z), Leisure(z)
+# q1(y,z) <- Amenity(y), contains(z, y), Leisure(z)
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -15,6 +15,6 @@ PREFIX : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
 SELECT ?y ?z
 WHERE { 
     ?y a tuwt:Amenity .
-    ?y tuwt:isLocatedInside ?z .
+    ?z tuwt:isLocatedContain ?y .
     ?z a tuwt:Leisure .
 }
