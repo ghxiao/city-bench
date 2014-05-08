@@ -132,7 +132,7 @@ of source:
 * Postgres/PostGIS relations: `connection_id  sql_statement`
 
    The `connection_id` is as in the sources, 'sql_statement` defines the SQL "Insert" statement as 
-a template, which is writes the n-tuples from the source into the database. E.g., 
+a template, which writes the n-tuples from the source into the database. E.g.,
 
 ``` 
     target osm1 INSERT INTO table1 (subj, pred, obj) VALUES('{1}', '{2}', '{3}');
