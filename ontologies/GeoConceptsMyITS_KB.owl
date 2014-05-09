@@ -697,7 +697,17 @@ ABox and define Equality to OSM individiual. </rdfs:comment>
         <rdfs:subClassOf rdf:resource="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Operator"/>
     </owl:Class>
     
+ <owl:Class rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BankMediumOp">
+        <rdfs:subClassOf rdf:resource="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BankOp"/>
+    </owl:Class>
 
+ <owl:Class rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BankSmallOp">
+        <rdfs:subClassOf rdf:resource="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BankOp"/>
+    </owl:Class>
+
+ <owl:Class rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BankLargOp">
+        <rdfs:subClassOf rdf:resource="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BankOp"/>
+    </owl:Class>
 
     <!-- http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bar -->
 
@@ -4338,6 +4348,19 @@ with the Event &quot;Market&quot;</rdfs:comment>
         <rdfs:label rdf:datatype="&xsd;string">Denns</rdfs:label>
         <rdfs:label rdf:datatype="&xsd;string">Bio Maran</rdfs:label>
     </owl:NamedIndividual>
+
+   <owl:NamedIndividual rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/items#BankMediumOp">
+        <rdf:type rdf:resource="&tuw;BankMediumOp"/>
+    </owl:NamedIndividual>
+
+   <owl:NamedIndividual rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/items#BankSmallOp">
+        <rdf:type rdf:resource="&tuw;BankSmallOp"/>
+    </owl:NamedIndividual>
+
+   <owl:NamedIndividual rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/items#BankLargOp">
+        <rdf:type rdf:resource="&tuw;BankLargOp"/>
+    </owl:NamedIndividual>
+
 
    <owl:NamedIndividual rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/items#ErsteBank">
         <rdf:type rdf:resource="&tuw;BankOp"/>
