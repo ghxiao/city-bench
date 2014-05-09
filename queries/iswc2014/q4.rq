@@ -1,4 +1,4 @@
-# q4(x,y) ← Amenity(x), next(x, z), next(z, y), Shop(y)
+# q4(x) :- Amenity(x), next(x, y), Leisure(y), intersect(y, z), Leisure(z), next(x, z)
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -12,10 +12,12 @@ PREFIX gml: <http://www.opengis.net/gml/>
 PREFIX geo: <http://www.georss.org/georssl/>
 PREFIX : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
 
-SELECT ?x ?y ?z
+SELECT ?x
 WHERE { 
     ?x a tuwt:Amenity .
+    ?x tuwt:isLocatedNext ?y .
+    ?y a tuwt:Leisure .
+    ?y tuwt:isLocatedIntersect ?z .
+    ?z a tuwt:Leisure .
     ?x tuwt:isLocatedNext ?z .
-    ?z tuwt:isLocatedNext ?y .
-    ?y a tuwt:Shop .
 }

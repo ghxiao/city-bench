@@ -1,4 +1,4 @@
-#q3(x, y, z) :- Restaurant(x), hasQualitativeValue(x, u), AsianCuisine(u), next(x, y), Shop(y), contains(z, x), Leisure(z)
+#q3(x, y, z) :- Amenity(x), hasQualitativeValue(x, u), Cuisine(u), next(x, y), Shop(y), contains(z, x), Leisure(z)
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -14,9 +14,9 @@ PREFIX : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
 
 SELECT ?x ?y ?z
 WHERE { 
-    ?x a tuwt:Restaurant . 
+    ?x a tuwt:Amenity . 
     ?x tuwt:hasQualitativeValue ?u .
-    ?u a tuwt:AsianCuisine .
+    ?u a tuwt:Cuisine .
     ?x tuwt:isLocatedNext ?y .
     ?y a tuwt:Shop .
     ?z tuwt:isLocatedContain ?x .
