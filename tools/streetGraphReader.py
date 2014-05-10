@@ -22,10 +22,10 @@ class CustomScriptReader():
 
     def open(self, parameter):
 
-        vals = parameter.split(' ')
+        vals = parameter.split('" ')
 
-        self.relation = vals[0]
-        self.input1 = vals[1]
+        self.relation = vals[0].replace('\"', '')
+        self.input1 = vals[1].replace('\"', '')
         #print self.relation
 
 

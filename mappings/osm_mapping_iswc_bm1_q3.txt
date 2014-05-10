@@ -1,44 +1,24 @@
-CONNECTION osm1: host=localhost port=5432 dbname=osm_cork user=postgres password=ps
+CONNECTION osm1: host=localhost port=5432 dbname=osm_vienna2 user=postgres password=ps
 
-FILE f1: name=/Users/patrik/Desktop/OSM_Data/cork2/bm1_restaurant.owl
-FILE f2: name=/Users/patrik/Desktop/OSM_Data/cork2/bm1_rel_hasCuisine.owl
-FILE f4: name=/Users/patrik/Desktop/OSM_Data/cork2/bm1_rest_rel_inside.owl
-FILE f5: name=/Users/patrik/Desktop/OSM_Data/cork2/bm1_rest_rel_next50.owl
-FILE f6: name=/Users/patrik/Desktop/OSM_Data/cork2/bm1_rest_rel_next100.owl
-FILE f7: name=/Users/patrik/Desktop/OSM_Data/cork2/bm1_rest_rel_next250.owl
-FILE f8: name=/Users/patrik/Desktop/OSM_Data/cork2/bm1_rest_rel_next500.owl
+FILE f1: name=/Users/patrik/Desktop/OSM_Data/vienna4/bm1_restaurant.owl
+FILE f2: name=/Users/patrik/Desktop/OSM_Data/vienna4/bm1_rel_hasCuisine.owl
+FILE f3: name=/Users/patrik/Desktop/OSM_Data/vienna4/bm1_rel_intersect.owl
 
 SCRIPT s1: /Users/patrik/ITS/city-bench/tools/spatialRelationsDatabaseReader.py
 SCRIPT s2: /Users/patrik/ITS/city-bench/tools/transformOSMConcepts.py
 
-mappingId A6
+mappingId A1
 source osm1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_point WHERE amenity = 'restaurant' AND name IS NOT NULL AND osm_id > 0
 target f1  :{1} rdf:type tuwt:Restaurant, owl:NamedIndividual;
            gml:featurename "{2}"^^xsd:string;
 	   geo:point "{3}"^^xsd:string .
 
-mappingId A7
-source osm1  SELECT osm_id, name AS geo FROM planet_osm_point WHERE amenity = 'restaurant' AND name IS NOT NULL AND osm_id > 0
+mappingId A2
+source osm1 SELECT osm_id, name AS geo FROM planet_osm_point WHERE amenity = 'restaurant' AND name IS NOT NULL AND osm_id > 0
 transform s2 "restaurant_role" "2"
 target f2  :{1} tuwt:hasCuisine :{2} .
 
-mappingId A0
-source s1 "osm1" "within" "planet_osm_point" "planet_osm_polygon" "t1.amenity = 'restaurant'" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) "
-target f4 {1} tuwt:isLocatedInside {2} .
-
-mappingId A1
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity = 'restaurant'" "t2.shop IS NOT NULL" "0.005"
-target f5 :{1} tuwt:isLocatedNext :{2} .
-
-mappingId A2
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity = 'restaurant'" "t2.shop IS NOT NULL" "0.001"
-target f6 :{1} tuwt:isLocatedNext :{2} .
-
 mappingId A3
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity = 'restaurant'" "t2.shop IS NOT NULL" "0.0025"
-target f7 :{1} tuwt:isLocatedNext :{2} .
-
-mappingId A4
-source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.amenity = 'restaurant'" "t2.shop IS NOT NULL" "0.005"
-target f8 :{1} tuwt:isLocatedNext :{2} .
+source s1 "osm1" "intersects" "planet_osm_polygon" "planet_osm_polygon" "(t1.landuse IS NOT NULL or t1.leisure IS NOT NULL)" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL)"
+target f3 :{1} tuwt:isLocatedIntersect :{2} .
 

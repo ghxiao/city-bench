@@ -1,0 +1,20 @@
+# q1(y,z) <- Amenity(y), contains(z, y), Leisure(z)
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#>
+PREFIX tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX gml: <http://www.opengis.net/gml/>
+PREFIX geo: <http://www.georss.org/georssl/>
+PREFIX : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
+
+SELECT ?y ?z
+WHERE { 
+    ?y a tuwt:Amenity .
+    ?z tuwt:isLocatedContain ?y .
+    ?z a tuwt:Leisure .
+}

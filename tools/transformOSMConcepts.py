@@ -26,26 +26,65 @@ class CustomScriptTransform():
 
 		if self.group == "amenity":
 			
-			if tempList[self.position] == "bank": tempList[self.position] = "tuwt:Bank"
-			elif tempList[self.position] == "pharmacy": tempList[self.position] = "tuwt:Pharmacy"
-			elif tempList[self.position] == "cinema": tempList[self.position] = "tuwt:Cinema"
-			elif tempList[self.position] == "theatre": tempList[self.position] = "tuwt:Theatre"
-			elif tempList[self.position] == "fast_food": tempList[self.position] = "tuwt:FastFood"
-			elif tempList[self.position] == "restaurant": tempList[self.position] = "tuwt:Restaurant"
-			elif tempList[self.position] == "post_office": tempList[self.position] = "tuwt:PostOffice"
-			elif tempList[self.position] == "cafe": tempList[self.position] = "tuwt:Cafe"
-		
-		if self.group == "highway":
+			if tempList[self.position] == "bank": tempList[self.position] = "Bank"
+			elif tempList[self.position] == "pharmacy": tempList[self.position] = "Pharmacy"
+			elif tempList[self.position] == "cinema": tempList[self.position] = "Cinema"
+			elif tempList[self.position] == "theatre": tempList[self.position] = "Theatre"
+			elif tempList[self.position] == "fast_food": tempList[self.position] = "FastFood"
+			elif tempList[self.position] == "restaurant": tempList[self.position] = "Restaurant"
+			elif tempList[self.position] == "post_office": tempList[self.position] = "PostOffice"
+			elif tempList[self.position] == "cafe": tempList[self.position] = "Cafe"
+			elif tempList[self.position] == "bar": tempList[self.position] = "Bar"
+			elif tempList[self.position] == "atm": tempList[self.position] = "ATM"
+			elif tempList[self.position] == "pub": tempList[self.position] = "Pub"
+			elif tempList[self.position] == "fuel": tempList[self.position] = "Fuel"
+			elif tempList[self.position] == "parking": tempList[self.position] = "Parking"
+			else:
+				tempList[self.position] = "Amenity"
+				
+			return tuple(tempList)
+
+		if self.group == "shop":
 			
-			if tempList[self.position] == "residential": tempList[self.position] = "tuwt:ResidentialRoute"
-			elif tempList[self.position] == "primary": tempList[self.position] = "tuwt:PrimaryRoute"
-			elif tempList[self.position] == "secondary": tempList[self.position] = "tuwt:SecondaryRoute"
-			elif tempList[self.position] == "tertiary": tempList[self.position] = "tuwt:TertiaryRoute"
+			if tempList[self.position] == "supermarket": tempList[self.position] = "Supermarket"
+			elif tempList[self.position] == "bakery": tempList[self.position] = "Bakery"
+			elif tempList[self.position] == "hairdresser": tempList[self.position] = "Hairdresser"
+			elif tempList[self.position] == "shoes": tempList[self.position] = "ShoeShop"
+			elif tempList[self.position] == "chemist": tempList[self.position] = "Chemist"
+			elif tempList[self.position] == "butcher": tempList[self.position] = "Butcher"
+			elif tempList[self.position] == "clothes": tempList[self.position] = "Clothes"
+			elif tempList[self.position] == "kiosk": tempList[self.position] = "Kiosk"
+			elif tempList[self.position] == "bicycle": tempList[self.position] = "BicycleShop"
+			elif tempList[self.position] == "florist": tempList[self.position] = "Florist"
+			else:
+				tempList[self.position] = "Shop"
 				
 			return tuple(tempList)
 		
-		if self.group == "restaurant_role":
+		if self.group == "highway":
+			
+			if tempList[self.position] == "residential": tempList[self.position] = "ResidentialRoute"
+			elif tempList[self.position] == "primary": tempList[self.position] = "PrimaryRoute"
+			elif tempList[self.position] == "secondary": tempList[self.position] = "SecondaryRoute"
+			elif tempList[self.position] == "tertiary": tempList[self.position] = "TertiaryRoute"
+				
+			return tuple(tempList)
+
+		if self.group == "bank_role":
+			
+			sn = tempList[self.position].lower() 
+			obj_name = ""
+			if sn.find("bank austria")  >= 0 or sn.find("erste bank") >= 0 or sn.find("raiffeisen") >= 0  or sn.find("bank of ireland") >= 0 or sn.find("allied irish bank") >= 0 or sn.find("norvik") >= 0 or sn.find("swedbank") >= 0 or sn.find("seb") >= 0 or sn.find("ubs") >= 0 or sn.find("credit suisse") >= 0: obj_name = "BankLargOp"
+			elif sn.find("bawag")  >= 0 or sn.find("hypo") >= 0  or sn.find("volksbank") >= 0 or sn.find("ulster bank") >= 0 or sn.find("permanennt tsb") >= 0 or sn.find("nordea") >= 0 or sn.find("ge money") >= 0 or sn.find("kantonalbank") >= 0 or sn.find("valiant") >= 0 or sn.find("bekb") >= 0: obj_name = "BankMediumOp"
+			else:
+				obj_name = "BankSmallOp"
+				
+			tempList[self.position] = obj_name
+			return tuple(tempList)
+
 		
+		if self.group == "restaurant_role":
+			
 			sn = tempList[self.position].lower() 
 			obj_name = ""
 			if sn.find("curry")  >= 0 or sn.find("tandoor") >= 0 or sn.find("indian") >= 0: obj_name = "IndianCuisine"

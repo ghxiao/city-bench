@@ -687,6 +687,12 @@ ABox and define Equality to OSM individiual. </rdfs:comment>
     <owl:Class rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bank">
         <rdfs:label rdf:datatype="&xsd;string">Bank</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Financial"/>
+	<rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tuw;hasBankOperator"/>
+                <owl:someValuesFrom rdf:resource="&owl;Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 

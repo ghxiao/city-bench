@@ -112,7 +112,7 @@ class CustomScriptReader():
                     
                     temp_geo = geo1.buffer(self.distance) #  Buffer_Distance_Iso, Buffer_Quadrant_Segments)¶
                     if temp_geo.contains(geo2): # Need to change this
-                        #print distance
+                        print distance
                         yield (obj_id1, obj_id2)
 
     #def close():
