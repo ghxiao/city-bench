@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="City-bench : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>City-bench</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ghxiao/city-bench">View on GitHub</a>
+
+          <h1 id="project_title">City-bench</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ghxiao/city-bench/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ghxiao/city-bench/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="city-bench" class="anchor" href="#city-bench"><span class="octicon octicon-link"></span></a>city-bench</h1>
+
+<p><code>city-bench</code> is a publicly available collection of geographic datasets for OBDA systems.</p>
+
+<p>The benchmarks are created in a simple and extensible way by
+employing a rule-based data transformation language to extract
+instance data from OpenStreetMap (OSM) geospatial data.</p>
+
+<p>Directories in this repository are:</p>
+
+<ul>
+<li>
+<a href="cities">cities</a>: pre-generated OWL files for selected cities</li>
+<li>
+<a href="queries">queries</a>: predefined SPARQL queries</li>
+<li>
+<a href="tools">tools</a>: data generation tools, which you can use to create your own benchmark</li>
+<li>
+<a href="mappings">mappings</a>: a collection of mappings to generate the cities instances </li>
+</ul><h2>
+<a name="data-generation-tools" class="anchor" href="#data-generation-tools"><span class="octicon octicon-link"></span></a>Data Generation Tools</h2>
+
+<p><code>generate.py</code> is a Python 2.7 script that resembles the extract,
+transform, and load (ETL) process of classical data transformation
+tools. The main input is the mapping file which contains ETL steps
+specified in the next section. The only external library need is the
+psycopg2 (<a href="https://pypi.python.org/pypi/psycopg2">https://pypi.python.org/pypi/psycopg2</a>), which is the
+PostgreSQL//PostGIS database adapter.</p>
+
+<p><code>console $ generate.py --mappingFile file.txt --verbose</code></p>
+
+<p><code>spatialRelationsReader.py</code> is an example implemenation of an external
+script, which acts as a data source and calculates the spatial
+relations (e.g., contains, next, etc.) between two input RDF files.
+The files have to contain individuals with roles from GeoRSS (e.g.,
+geo:point) assigned to them. As an external library shapely
+(<a href="https://pypi.python.org/pypi/Shapely">https://pypi.python.org/pypi/Shapely</a>) and GDAL is needed
+(<a href="http://trac.osgeo.org/gdal/wiki/GdalOgrInPython">http://trac.osgeo.org/gdal/wiki/GdalOgrInPython</a>). The parameter 
+for the script are <code>relation file1 file2 distance</code>.</p>
+
+<p><code>streetGraphReader.py</code> is another implementation of a  external script
+reader. In this reader the input are objects  represening different types of in OSM.
+From the objects and their geometry (e.g. geo:line) all the nodes and 
+edges of the street graph are extracted. The parameter 
+for the script are <code>type</code> to chose between nodes/edges and <code>file</code>.</p>
+
+<p><code>transformOSMConcepts.py</code> is a simple tranformation script for 
+converting OSM categories (e.g., restaurant) to concepts.</p>
+
+<h2>
+<a name="mapping-language-syntax" class="anchor" href="#mapping-language-syntax"><span class="octicon octicon-link"></span></a>Mapping Language Syntax</h2>
+
+<p>A mapping file has two seperate sections. The first section is 
+concerned with general defintions as connection strings 
+for databases, file names, scripts, and simple constants. 
+A line is ignored and treated a comment if it starts with <code>#</code>.</p>
+
+<p>The following definitions are available, where <code>id</code> is the<br>
+reference which has to be used in the mapping axioms:</p>
+
+<ul>
+<li>
+<p>Postgres/PostGIS connections: <code>CONNECTION id: conn_string</code></p>
+
+<p>Connection are used for reading and writing from/to (geospatial) databases. We assume the standard data source name notation for conn_string, e.g.,</p>
+
+<p><code>CONNECTION id1: HOST=localhost PORT=5432 DBNAME=test USER=postgres PASSWORD=secret</code></p>
+</li>
+<li>
+<p>Text files: <code>FILE id: file_string</code></p>
+
+<p>Any text file can function as an input/output source and is read/written line-by-line, where <code>file_string</code> has to contain <code>name=</code> to define the file url and optional <code>delimiter=' '</code>to define the field separator, e.g.,</p>
+
+<p><code>FILE id2: name=/Users/patrik/test.csv delimiter=';'</code></p>
+</li>
+<li>
+<p>Python scripts: <code>SCRIPT id: script_string</code></p>
+
+<p>Scripts are eiter used as input sources or as a transformation step for converting values. <code>script_string</code> is simply the url of the script file. For instance, </p>
+
+<p><code>SCRIPT id3: ./spatialRelationsReader.py</code></p>
+</li>
+<li>
+<p>Constants: <code>CONST id: const_string</code></p>
+
+<p>Constants are simple strings which are mainly used to write <a href="https://github.com/prefix" class="user-mention">@prefix</a>, <a href="https://github.com/base" class="user-mention">@base</a>, ow:imports to output files, e.g.,</p>
+
+<p><code>CONST id4: @prefix  geo: &lt;http://www.georss.org/georssl/&gt;</code></p>
+</li>
+</ul><p>The second section contains the mapping axioms. An axiom defines a 
+single ETL step, the syntax is an extension of the ontop mapping language 
+(<a href="https://github.com/ontop/ontop/wiki/ObdalibObdaTurtlesyntax">https://github.com/ontop/ontop/wiki/ObdalibObdaTurtlesyntax</a>).
+A mapping axiom has an id and is defined either as a pair of <code>source</code> and <code>target</code>
+or as the triple of <code>source</code>, <code>transform</code>, and <code>target</code>:</p>
+
+<pre>
+mappingId map_id
+source source_id source_parameter
+transform transform_id transform_parameter
+target target_id target_parameter
+</pre>
+
+<p>According to the kind of source, it has to be configured accordingly, where 
+ <code>source_id</code> refers to the defintion:</p>
+
+<ul>
+<li>
+<p>Postgres/PostGIS relations: <code>connection_id  sql_statement</code></p>
+
+<p>The <code>connection_id</code> refers to <code>CONNECTION</code> from the defintions. 
+<code>sql_statement</code> defines the SQL "Select-From-Where" statement which is
+executed on the refered database.  The result can be processed a set
+of n-tuples, which can be accessed by its index in the <code>target</code> step. For instance, </p>
+
+<p><code>source id1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_polygon WHERE leisure = 'park'</code>, reads all the parks (spatial objects) from OSM.</p>
+</li>
+<li>
+<p>Text files: <code>file_id reg_exp</code></p>
+
+<p>Text files are directly linked to the definition in <code>FILE</code>. The refered file is read line-by-line resulting in an n-tuple base on the field delimiter. If <code>reg_exp</code> is empty all lines are returned, otherwise only the line fulfilling the regular expression are returned. For instance, </p>
+
+<p><code>source id2  (?)POINT\(1[^&gt;]*\)}</code>, extracts all lines, which contain a "Point" geometry.</p>
+</li>
+<li>
+<p>Python scripts:  <code>script_id parameter</code></p>
+
+<p>Scripts are the main option to extend the benchmark creation i.a. with the calculation of spatial relations. <code>parameter</code> are entered separated by space and can be either constant texts (in double quotes) or variables, which are replaced with the corresponding value on run time. Note that scripts are treated as a data source, hence the methods <code>open(parameter)</code> and <code>read()</code> have to be implemented.  In the read method n-tuples have to be returned by the python command <code>yield</code>.</p>
+
+<p><code>source id3 "contains" id2 id2</code>, which calls the spatialRelationsReader.py script to calculate the "contains" relation with the same file as the input</p>
+</li>
+<li>
+<p>Constants: <code>constant c_id1 c_id2 ...</code></p>
+
+<p>Constants are the simplest sources and directly written to the target. It is possible to assign a sequence of constants to a single writing step.</p>
+
+<p><code>source constant id4</code></p>
+</li>
+</ul><p>The targets <code>target target_id target_parameter</code> have to be configured according to the type 
+of source:</p>
+
+<ul>
+<li>
+<p>Postgres/PostGIS relations: <code>connection_id  sql_statement</code></p>
+
+<p>The <code>connection_id</code> is as in the sources, 'sql_statement` defines the SQL "Insert" statement as 
+a template, which writes the n-tuples from the source into the database. E.g.,</p>
+</li>
+</ul><pre><code>    target osm1 INSERT INTO table1 (subj, pred, obj) VALUES('{1}', '{2}', '{3}');
+</code></pre>
+
+<ul>
+<li>
+<p>Text files: <code>file_id output_text</code></p>
+
+<p>The <code>file_id</code> is as in the sources, 'output_text` is a textual template, which is written to the file. It can contain as single or multiple lines.  Usually, it will represent triples, which are used for the reasoner. For instance, </p>
+</li>
+</ul><pre><code>    target f3  :{1} rdf:type tuwt:Playground, owl:NamedIndividual;
+               gml:featurename "{2}"^^xsd:string; 
+               geo:polygon "{3}"^^xsd:string.
+</code></pre>
+
+<ul>
+<li>Console: <code>stdout output_text</code>
+For testing purposes, writing to the console is achieved by using <code>stdout</code>.</li>
+</ul><h2>
+<a name="contacts" class="anchor" href="#contacts"><span class="octicon octicon-link"></span></a>Contacts</h2>
+
+<ul>
+<li><a href="http://www.kr.tuwien.ac.at/staff/eiter/">Thomas Eiter</a></li>
+<li><a href="http://www.kr.tuwien.ac.at/staff/patrik/">Patrik Schneider</a></li>
+<li><a href="http://www.dbai.tuwien.ac.at/staff/simkus/">Mantas Simkus</a></li>
+<li><a href="http://www.ghxiao.org">Guohui Xiao</a></li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">City-bench maintained by <a href="https://github.com/ghxiao">ghxiao</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
