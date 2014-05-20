@@ -1,0 +1,186 @@
+
+body {
+  overflow-y: scroll;
+}
+
+/*-------------------------------------------------
+TOP MENU
+-------------------------------------------------*/
+
+h1 {
+    border: 0;
+    text-align: left;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+    font-size: 36pt;
+    padding: 4px 0px 0px 4px;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 30pt;
+    margin: 0px 0px 0px 0px;
+}
+
+#title {
+    border: 0;
+    text-align: left;
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+    font-size: 36pt;
+    padding: 4px 0px 0px 4px;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 30pt;
+}
+
+#menu {
+    padding: 8px 20px 4px 8px;
+    margin: 0px 0px 0px 0px;
+    /*background-color: #003366;*/
+    background-color: #000000;
+    color: #ffffff;
+    text-align: left;
+}
+
+#menu a {
+    /* font-family: Verdana, Arial, Sans-Serif;*/
+    font-family: Helvetica, sans-serif;
+    color: #ffffff;
+    /*font-size: 10pt;*/
+    /*font-weight: bold;*/
+}
+
+#menu a:link {
+    /*color: #bbddff;*/
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#menu a:active {
+    /*color: #ffffff; */
+    color: #ffffff; 
+    text-decoration: underline; 
+}
+
+#menu a:visited {
+    /*color: #ddeeff; */
+    color: #ffffff; 
+    text-decoration: none; 
+}
+
+#menu a:hover {
+    /*color: #ffffff; */
+    color: #ffffff; 
+    /* text-decoration: underline; */
+    
+    text-decoration: none; 
+    /*border-bottom: 1px solid #b0b1b2;*/
+    border-bottom: 1px solid #ffffff;
+    background-color: #000000;
+}
+
+/*---------------------------------------------
+ TABLE from http://www.designinfluences.com/fluid960gs/
+----------------------------------------------- */
+table {
+	width:100%;
+	border:1px solid #bbb;
+	margin-bottom:10px;
+}
+col.colC {
+	width:8em;
+}
+th, td {
+	padding:.2em 1em;
+	text-align:left;
+}
+thead th {
+	border-bottom:2px solid #888;
+	background:#bbb;
+	padding:.4em 1em .2em;
+}
+thead th.table-head {
+	font-size:1em;
+	font-weight:normal;
+	text-transform:uppercase;
+	color:#fff;
+	background:#555;
+	border:1px solid #555;
+}
+tbody th,
+tbody td {
+	border-top:1px solid #bbb;
+	border-bottom:1px solid #bbb;
+	background:#eee;
+}
+tbody tr.odd th,
+tbody tr.odd td {
+	background:#fff;
+}
+tfoot th,
+tfoot td {
+	border-top:2px solid #666;
+	background:#eee;
+}
+tfoot tr.total th,
+tfoot tr.total td {
+	border-top:6px double #666;
+}
+tfoot tr.total th {
+	text-transform:uppercase;
+}
+th.right-align,
+td.right-align {
+	text-align:right;
+}
+
+/*-------------------------------------------------
+DOCUMENTATION
+-------------------------------------------------*/
+
+div.caution {
+    /* background-color:#ffe0e0; */
+    background-color:#00ffff;
+    padding: 6px;
+    margin-bottom: 12px;
+}
+
+div.synopsis {
+    background-color:#ffe0e0;
+    padding: 6px 20px;
+    margin-bottom: 12px;
+}
+
+div.atomusage {
+    font-family: courier, fixed, mono;
+/*    font-size: 121%; */
+    margin: 8px 0px 16px 0px;
+    font-weight: bold;
+}
+
+div.param {
+    font-family: courier, fixed, mono;
+/*    font-size: 121%; */
+    float: left;
+    width: 60px;
+    text-align: right;
+    margin-right: 10px;
+    clear: left;
+}
+
+div.paramtext {
+    float: left;
+    width: 82%;
+    margin-bottom: 4px;
+}
+
+/*-------------------------------------------------
+LITERATURE
+-------------------------------------------------*/
+
+div.bibentry {
+    /* border: 1px solid #d0d0d0;
+    background-color: #e0e0e0; */
+    margin: 0px 0px 20px 0px;
+    padding: 0px 0px 0px 0px;
+}
+

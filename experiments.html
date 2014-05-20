@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Experiments</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/text.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/960.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+</head>
+
+<body>
+
+
+<div class="container_12">
+
+<div class="grid_9">
+
+
+	<div>
+
+		<div>
+
+		  <h2>Experiments for ORE 2014</h2>
+		  
+
+		  <p>We conducted the experiments on a HP Proliant Linux server with
+		  144 cores @3.47GHz, 106GB of RAM and a 1TB 15K RPM HD.
+		  The systems were evaluated on Java 7 with 8GB memory for the JVM.
+		  The timeouts are set to 10min (indicated by ‘-’) for query answering and to 1h for ontology loading.</p>
+		  
+		  <h3>Spatial Relations Benchmark (BM1)</h3>
+		  
+		  
+		  <p> For the cities of Cork, Riga, Bern, and Vienna, we transform
+		  all the amenities (e.g., restaurants),
+		  leisure areas (e.g., playgrounds), and shops to concept assertions.
+		  Then, we calculate the roles for the spatial relations
+		  inside between leisure areas and amenities. Further we generate
+		  several next relations between amenities and shops.
+		  The different next relations are generated according to the
+		  distances of 50m, 100m, 250m, and 500m between two objects. </p>
+
+		  <!-- <p><a href="downloads/foiks2012-fo-rw.7z">Download
+		  Test data and MOR</a> </p> -->
+		  <p> The OSM instances are available under <a href="https://github.com/ghxiao/city-bench/tree/master/cities" >cities</a> </p>
+
+		  The instance data can be generated the follwing way using the mapping file from <a href="https://github.com/ghxiao/city-bench/tree/master/mappings">mappings</a>:
+		  <pre> $ ./generate.py –mappingFile osm_mapping_bm1.txt –mode etl  </pre>
+
+		  
+		  <h4>Next 250m</h4>
+		  
+		  <p>  This experiment was conducted with a distance for 250m for next:  </p> 
+		  
+			<table cellspacing="0" cellpadding="0" style="width: 600px">
+				<tbody>
+					<tr>
+					<th></th>
+		  			<th colspan="3">Cork</th>
+		  			<th colspan="3">Riga</th>
+		  			<th colspan="3">Bern</th>
+		  			<th colspan="3">Vienna</th>
+					</tr>
+					<tr>
+						<td>Query</td>
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+						
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+						
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+						
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+					</tr>
+					<tr>
+						<td>q<sub>1</sub></td>
+						<td>1.36</td>
+						<td>1.37</td>
+						<td>0.01</td>
+						
+						<td>1.70</td>
+						<td>2.92</td>
+						<td>0.02</td>
+						
+						<td>2.37</td>
+						<td>5.76</td>
+						<td>0.38</td>
+						
+						<td>2.87</td>
+						<td>16.92</td>
+						<td>0.48</td>
+					</tr>
+					<tr>
+						<td>q<sub>2</sub></td>
+						<td>1.56</td>
+						<td>0.04</td>
+						<td>0.02</td>
+						
+						<td>1.55</td>
+						<td>0.05</td>
+						<td>0.05</td>
+						
+						<td>1.90</td>
+						<td>0.08</td>
+						<td>0.14</td>
+						
+						<td>2.21</td>
+						<td>15.83</td>
+						<td>1.04</td>	
+					</tr>
+					<tr>
+						<td>q<sub>3</sub></td>
+						<td>1.99</td>
+						<td>0.10</td>
+						<td>0.02</td>
+						
+						<td>2.27</td>
+						<td>0.11</td>
+						<td>0.05</td>
+						
+						<td>4.54</td>
+						<td>0.29</td>
+						<td>0.15</td>
+						
+						<td>16.95</td>
+						<td>16.49</td>
+						<td>1.09</td>	
+
+					</tr>
+					<tr>
+						<td>q<sub>4</sub></td>
+						<td>1.90</td>
+						<td>0.10</td>
+						<td>0.29</td>
+						
+						<td>1.88</td>
+						<td>0.51</td>
+						<td>0.60</td>
+						
+						<td>5.07</td>
+						<td>1.05</td>
+						<td>1.75</td>
+						
+						<td>21.31</td>
+						<td>20.99</td>
+						<td>16.39</td>	
+
+					</tr>
+					<tr>
+						<td>q<sub>5</sub></td>
+						<td>5.65</td>
+						<td>0.93</td>
+						<td>4.62</td>
+						
+						<td>12.54</td>
+						<td>12.54</td>
+						<td>27.36</td>
+						
+						<td>47.90</td>
+						<td>4.94</td>
+						<td>142.40</td>
+						
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>	
+
+					</tr>
+					<tr>
+						<td>load</td>
+						<td>2.12</td>
+						<td>2.69</td>
+						<td>5.10</td>
+						
+						<td>2.58</td>
+						<td>4.44</td>
+						<td>11.47</td>
+						
+						<td>3.77</td>
+						<td>7.79</td>
+						<td>24.40</td>
+						
+						<td>7.66</td>
+						<td>24.62</td>
+						<td>128.06</td>	
+
+					</tr>
+				</tbody>
+			</table>		  
+
+		  <h4>Next 500m</h4>
+		  
+		  <p>  This experiment was conducted with a distance for 500m for next:  </p> 
+		  
+			<table cellspacing="0" cellpadding="0" style="width: 600px">
+				<tbody>
+					<tr>
+					<th></th>
+		  			<th colspan="3">Cork</th>
+		  			<th colspan="3">Riga</th>
+		  			<th colspan="3">Bern</th>
+		  			<th colspan="3">Vienna</th>
+					</tr>
+					<tr>
+						<td>Query</td>
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+						
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+						
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+						
+						<td>S</td>
+						<td>P</td>
+						<td>OB</td>
+					</tr>
+					<tr>
+						<td>q<sub>1</sub></td>
+						<td>1.56</td>
+						<td>1.50</td>
+						<td>0.01</td>
+						
+						<td>1.84</td>
+						<td>3.99</td>
+						<td>0.02</td>
+						
+						<td>1.99</td>
+						<td>7.67</td>
+						<td>0.40</td>
+						
+						<td>2.32</td>
+						<td>48.03</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>q<sub>2</sub></td>
+						<td>1.42</td>
+						<td>0.04</td>
+						<td>0.03</td>
+						
+						<td>1.63</td>
+						<td>0.10</td>
+						<td>0.12</td>
+						
+						<td>1.83</td>
+						<td>7.86</td>
+						<td>0.31</td>
+						
+						<td>3.84</td>
+						<td>52.23</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>q<sub>3</sub></td>
+						<td>1.97</td>
+						<td>0.10</td>
+						<td>0.03</td>
+						
+						<td>2.41</td>
+						<td>0.15</td>
+						<td>0.11</td>
+						
+						<td>9.36</td>
+						<td>8.29</td>
+						<td>0.30</td>
+						
+						<td>26.96</td>
+						<td>38.21</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>q<sub>4</sub></td>
+						<td>1.45</td>
+						<td>0.20</td>
+						<td>0.23</td>
+						
+						<td>2.11</td>
+						<td>1.84</td>
+						<td>23.88</td>
+						
+						<td>22.42</td>
+						<td>10.77</td>
+						<td>4.13</td>
+						
+						<td>8.59</td>
+						<td>74.84</td>
+						<td>-</td>
+
+					</tr>
+					<tr>
+						<td>q<sub>5</sub></td>
+						<td>16.48</td>
+						<td>2.49</td>
+						<td>19.51</td>
+						
+						<td>75.28</td>
+						<td>15.26</td>
+						<td>148.06</td>
+						
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+						
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>load</td>
+						<td>2.50</td>
+						<td>3.38</td>
+						<td>5.83</td>
+						
+						<td>3.42</td>
+						<td>7.66</td>
+						<td>15.65</td>
+						
+						<td>4.97</td>
+						<td>13.59</td>
+						<td>35.85</td>
+						
+						<td>15.22</td>
+						<td>86.56</td>
+						<td>-</td>
+					</tr>
+				</tbody>
+			</table>		  
+		  
+			
+			
+			<div
+				style="border-top: 1px solid #999; background-color: inherit; color: #999; font-size: 8.5pt;">
+				<!-- <p>$Id$  -->
+			</div>
+
+		</div>
+
+</div>
+</div>
+
+
+
+
+	</div>
+
+</body>
+
+</html>
