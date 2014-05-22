@@ -335,11 +335,18 @@
        <owl:inverseOf rdf:resource="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isLocatedInside"/>
     </owl:ObjectProperty>
 
+<<<<<<< HEAD
 <owl:ObjectProperty rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#path"/>
 
     <owl:ObjectProperty rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#connected">
         <rdf:type rdf:resource="&owl;SymmetricProperty"/>
     </owl:ObjectProperty>
+=======
+    <owl:ObjectProperty rdf:about="http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#connected">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+    </owl:ObjectProperty>
+  
+>>>>>>> 717e8b44d34ca8b6749d1a3b98e1f6e687e77235
 
     <!-- http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isLocatedAlong -->
 
