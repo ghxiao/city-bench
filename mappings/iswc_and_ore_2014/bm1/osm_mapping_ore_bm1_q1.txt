@@ -1,0 +1,55 @@
+CONNECTION osm1: host=localhost port=5432 dbname=osm_cork user=postgres password=ps
+
+FILE f1: name=/Users/patrik/OSM_Data/Cork/bm1_amenity.owl
+FILE f2: name=/Users/patrik/OSM_Data/Cork/bm1_leisure.owl
+FILE f3: name=/Users/patrik/OSM_Data/Cork/bm1_rel_inside.owl
+
+SCRIPT s1: /Users/patrik/ITS/city-bench/tools/spatialRelationsDatabaseReader.py
+SCRIPT s2: /Users/patrik/ITS/city-bench/tools/transformOSMConcepts.py
+
+CONST c1: @prefix tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#> .
+CONST c2: @prefix tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c3: @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+CONST c4: @prefix owl: <http://www.w3.org/2002/07/owl#> .
+CONST c5: @prefix dc: <http://purl.org/dc/elements/1.1/> .
+CONST c6: @prefix gml: <http://www.opengis.net/gml/> .
+CONST c7: @prefix geo: <http://www.georss.org/georssl/> .
+CONST c8: @base <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+
+CONST c9: gml:featurename rdf:type owl:DatatypeProperty . geo:point rdf:type owl:DatatypeProperty . geo:line rdf:type owl:DatatypeProperty . geo:polygon rdf:type owl:DatatypeProperty .
+CONST c10: tuwt:isLocatedInside rdf:type owl:ObjectProperty .
+CONST c11: tuwt:Bank rdf:type owl:Class . tuwt:Pharmacy rdf:type owl:Class . tuwt:Cinema rdf:type owl:Class . tuwt:Theatre rdf:type owl:Class . tuwt:FastFood rdf:type owl:Class . tuwt:ATM rdf:type owl:Class . tuwt:Parking rdf:type owl:Class .
+CONST c12: tuwt:Restaurant rdf:type owl:Class . tuwt:PostOffice rdf:type owl:Class . tuwt:Cafe rdf:type owl:Class . tuwt:Bar rdf:type owl:Class . tuwt:Pub rdf:type owl:Class . tuwt:Fuel rdf:type owl:Class .
+CONST c13: tuwt:Leisure rdf:type owl:Class .
+
+mappingId A0a
+source const c1 c2 c3 c4 c5 c6 c7 c8 c9 c11 c12
+target f1  {1}
+
+mappingId A0b
+source const c1 c2 c3 c4 c5 c6 c7 c8 c9 c13 
+target f2  {1}
+
+mappingId A0c
+source const c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 
+target f3 {1}
+
+mappingId A1
+source osm1  SELECT osm_id, name, amenity, ST_AsEWKT(way) AS geo FROM planet_osm_point WHERE amenity IS NOT NULL AND name IS NOT NULL AND osm_id > 0
+transform s2 "amenity" "3"
+target f1  tuwti:{1} rdf:type tuwt:{3}, owl:NamedIndividual;
+           gml:featurename "{2}"^^xsd:string;
+	       geo:point "{4}"^^xsd:string .
+
+mappingId A2
+source osm1 SELECT osm_id, name, ST_AsEWKT(way) FROM planet_osm_polygon where (landuse IS NOT NULL or leisure IS NOT NULL) AND osm_id > 0
+target f2  tuwti:{1} rdf:type tuwt:Leisure, owl:NamedIndividual;
+           gml:featurename "{2}"^^xsd:string;
+	       geo:polygon "{3}"^^xsd:string . 
+
+mappingId A3
+source s1 "osm1" "within" "planet_osm_point" "planet_osm_polygon" "t1.amenity IS NOT NULL AND t1.osm_id > 0" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) AND t2.osm_id > 0"
+target f3 tuwti:{1} tuwt:isLocatedInside tuwti:{2} .
+
+
+
