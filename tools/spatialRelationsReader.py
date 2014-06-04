@@ -41,7 +41,6 @@ class CustomScriptReader():
         if len(vals) > 3:
         	self.distance = float(vals[3].replace('\"', ''))
 
-
         if self.input2 is None or len(self.input2) == 0: self.input2 = self.input1
 
     def read(self):

@@ -4,6 +4,7 @@
 import getopt, sys
 import optparse
 from math import * 
+from random import randrange
 
 class CustomScriptTransform():
 
@@ -15,15 +16,26 @@ class CustomScriptTransform():
 		vals = parameter.split(' ')
 		self.group = vals[0]
 		self.position = int(vals[1]) - 1
+		
+
 
 	def map(self, tupleIn):
 		
 		# If no position, tuple, or group do nothing
-		if self.position == 0 or len(self.group) == 0 or len(tupleIn) < self.position:
+		if self.position < 0 or len(self.group) == 0 or len(tupleIn) < self.position:
 			return tupleIn
-		
+				
 		tempList = list(tupleIn)
 
+		if self.group == "random":
+			
+			ranr = randrange(1,10)
+			#print ranr
+			if ranr > 6:
+				return None
+			else:
+				return tuple(tempList)
+			
 		if self.group == "amenity":
 			
 			if tempList[self.position] == "bank": tempList[self.position] = "Bank"
@@ -69,6 +81,25 @@ class CustomScriptTransform():
 			elif tempList[self.position] == "tertiary": tempList[self.position] = "TertiaryRoute"
 				
 			return tuple(tempList)
+
+		if self.group == "supermarket_role":
+
+			sn = tempList[self.position].lower() 
+			obj_name = ""
+			if sn.find("spar")  >= 0 or sn.find("tesco")  >= 0 or sn.find("coop")  >= 0 or sn.find("edeka")  >= 0 or sn.find("rimi")  >= 0:
+				tempList[self.position] = "Spar"
+				return tuple(tempList)
+			if sn.find("billa")  >= 0 or sn.find("rewe")  >= 0 or sn.find("supernetto")  >= 0 or sn.find("migros")  >= 0 or sn.find("adeg")  >= 0:
+				tempList[self.position] = "Billa"
+				return tuple(tempList)
+			elif sn.find("hofer")  >= 0 or sn.find("aldi")  >= 0:
+				tempList[self.position] = "Hofer"
+				return tuple(tempList)
+			elif sn.find("lidl")  >= 0:
+				tempList[self.position] = "Lidl"
+				return tuple(tempList)
+			else:
+				return None 
 
 		if self.group == "bank_role":
 			
