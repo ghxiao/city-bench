@@ -26,11 +26,8 @@ Prerequisites
  BBBike.org (http://download.bbbike.org/osm/bbbike/), because they offer many different extracts 
 from large cities;
 - Load the OSM extract into PostGIS using osm2pgsql, e.g.,
-`sudo -u postgres osm2pgsql --latlong -d osm_vienna2 /Users/patrik/ITS/myits-svn/data/Vienna_01_07_08.osm`
-- Now you should see the tables planet_osm_line (for lines), planet_osm_point (for POIs), etc. with the 
-  data which can be used in the generation tools;
-
-
+`sudo -u postgres osm2pgsql --latlong -d osm_vienna vienna_01_07_08.osm`
+- Now you should see the tables planet_osm_line (for lines), planet_osm_point (for Pois), and planet_osm_polygon (for polygons). These tables are then referenced in the data generation tools;
 
 
 Data Generation Tools
