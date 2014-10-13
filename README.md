@@ -21,7 +21,7 @@ Prerequisites
 - Install Postgres and PostGIS, we created the our benchmarks with PostGIG 2.1.4. We also recommend to install and use pgAdmin3 to maintain the different (spatial) databases;
 - Create a PostGIS databases by using a the predfined PostGIS template (e.g. template_postgis);
 - Install the most recent version of osm2pgsql. Keep in mind that the authentification of the user
-  usually (e.g., postgis) has to be set on TRUSTED, so that osm2pgsql works;
+  usually (e.g., postgis) has to be set on TRUSTED, so that `osm2pgsql` works;
 - Get a OSM extract from one of the provider. We recommend to take it form 
  BBBike.org (http://download.bbbike.org/osm/bbbike/), because they offer many different extracts 
 from large cities;
