@@ -18,8 +18,7 @@ Directories in this repository are:
 Prerequisites
 ---------------------
 
-- Install Postgres, best on the latest stable release.
-- Install PostGIS, which fits to the Postgres version.
+- Install Postgres and PostGIS, we created the our benchmarks with PostGIG 2.1.4.
 - We recommend to use pgAdmin3 to maintain the different databases.
 - Create a PostGIS databases (by using a the predfined PostGIS template (e.g. template_postgis)
 - Install the most recent version of osm2pgsql. Keep in mind that the authentification of the user
