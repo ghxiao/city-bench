@@ -18,18 +18,17 @@ Directories in this repository are:
 Prerequisites
 ---------------------
 
-- Install Postgres and PostGIS, we created the our benchmarks with PostGIG 2.1.4.
-- We recommend to use pgAdmin3 to maintain the different databases.
-- Create a PostGIS databases (by using a the predfined PostGIS template (e.g. template_postgis)
+- Install Postgres and PostGIS, we created the our benchmarks with PostGIG 2.1.4. We also recommend to install and use pgAdmin3 to maintain the different (spatial) databases;
+- Create a PostGIS databases by using a the predfined PostGIS template (e.g. template_postgis);
 - Install the most recent version of osm2pgsql. Keep in mind that the authentification of the user
-  usually (e.g., postgis) has to be set on TRUSTED, so that osm2pgsql works.
+  usually (e.g., postgis) has to be set on TRUSTED, so that osm2pgsql works;
 - Get a OSM extract from one of the provider. We recommend to take it form 
  BBBike.org (http://download.bbbike.org/osm/bbbike/), because they offer many different extracts 
-from large cities
+from large cities;
 - Load the OSM extract into PostGIS using osm2pgsql, e.g.,
 `sudo -u postgres osm2pgsql --latlong -d osm_vienna2 /Users/patrik/ITS/myits-svn/data/Vienna_01_07_08.osm`
 - Now you should see the tables planet_osm_line (for lines), planet_osm_point (for POIs), etc. with the 
-  data which can be used in the generation tools.
+  data which can be used in the generation tools;
 
 
 
