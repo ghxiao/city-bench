@@ -13,6 +13,11 @@ class CustomScriptTransform():
 
 	def open(self, parameter):
 
+		# Our input has two parameter: 
+		# 1: What kind of mappping (e.g., amenity, shops, etc.)
+		# 2: Where in the input tuple (tupleIn) is the value which should be mapped.
+		#    This is needed because we usually have an input of the form, e.g., <id, name, tag>. Here we would set the position=3
+		
 		vals = parameter.split(' ')
 		self.group = vals[0]
 		self.position = int(vals[1]) - 1
