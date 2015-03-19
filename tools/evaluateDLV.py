@@ -6,7 +6,7 @@ import optparse
 import shlex, subprocess, shutil
 from math import * 
 #-n=1 one stable model; -silent only results; -nofacts only EDB predicates
-dlvCall = "dlv -silent -nofacts -n=1 {0} {1}"
+#dlvCall = "dlv -silent -nofacts -n=1 {0} {1}"
 
 class CustomScriptReader():
 
@@ -59,8 +59,13 @@ class CustomScriptReader():
 				
 				predicate =  atom[0: posOpenBracket]
 				#yield predicate
-				values = atom[posOpenBracket+1:posCloseBracket].split(",")
-				yield predicate, values[0], values[1]
+				temp1 = atom[posOpenBracket+1:posCloseBracket]
+				values = temp1.split(",")
+				values.insert(0, predicate)
+				tuple_sep = tuple(values)
+				#print tuple_sep
+				yield tuple_sep
+				#yield predicate, values[0], values[1]
 				
 				
 	#def close(self):
@@ -76,8 +81,7 @@ def main(argv):
 	#temp_list.append("est_idb.dlv")
 	
 	dataReader.open("\"test_edb.dlv\" \"test_idb.dlv\"")
-	for tupleIn in dataReader.read():
-		
+	for tupleIn in dataReader.read():	
 		print tupleIn
 		
 	#dataReader.close()

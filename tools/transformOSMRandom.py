@@ -32,10 +32,20 @@ class CustomScriptTransformOSMRandom():
 				
 		tempList = list(tupleIn)
 
+		if self.group == "select":
+			
+			ranr = randrange(1,10)
+			#print ranr
+			if ranr > 5:
+				return None
+			else:
+				return tuple(tempList)
+		
+		
 		if self.group == "bank_role":
 			
 			# Generate a random nr between 1-4
-			ranr = randrange(1,4)
+			ranr = randrange(1,10)
 			
 			# if it is 4 we ignore (by return None), so we just map (and generate) 75%
 			# Rest is straight forward we return the concept BankLargOp if 1, etc.
@@ -45,7 +55,7 @@ class CustomScriptTransformOSMRandom():
 				return "BankLargeOp"
 			elif ranr == 2:
 				return "BankMediumOp"
-			elif ranr == 3:
+			elif ranr >= 3:
 				return "BankSmallOp"
 				
 				

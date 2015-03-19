@@ -32,15 +32,6 @@ class CustomScriptTransform():
 				
 		tempList = list(tupleIn)
 
-		if self.group == "random":
-			
-			ranr = randrange(1,10)
-			#print ranr
-			if ranr > 6:
-				return None
-			else:
-				return tuple(tempList)
-			
 		if self.group == "amenity":
 			
 			if tempList[self.position] == "bank": tempList[self.position] = "Bank"

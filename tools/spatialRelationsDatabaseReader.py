@@ -77,7 +77,7 @@ class CustomScriptReader():
        
     
         # sourceQueryTemplate = "SELECT t1.osm_id, t2.osm_id FROM planet_osm_point as t1 INNER JOIN planet_osm_polygon AS t2 ON ST_Contains(t2.way, t1.way) WHERE t1.amenity IS NOT NULL AND  t2.landuse IS NOT NULL AND t1.osm_id > 0 and  t2.osm_id > 0"
-        sourceQueryTemplate = "SELECT t1.osm_id, t2.osm_id FROM {0} as t1 INNER JOIN {1} AS t2 ON {2} WHERE {3} AND {4} AND t1.osm_id > 0" # and t2.osm_id > 0
+        sourceQueryTemplate = "SELECT t1.osm_id, t2.osm_id FROM {0} as t1 INNER JOIN {1} AS t2 ON {2} WHERE {3} AND {4}" # AND t1.osm_id > 0 and t2.osm_id > 0
         sourceQuery = sourceQueryTemplate.format(self.table1, self.table2, spatialRelation, self.table1Cond, self.table2Cond) 
           
         print sourceQuery
