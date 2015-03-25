@@ -1,0 +1,32 @@
+ABox Statistics for /Users/patrik/Desktop/OSM_Data/riga_rr_bm1/
+Concept Assertions:
+42656, http://www.w3.org/2002/07/owl#NamedIndividual
+35107, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Point
+4452, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#ResidentialRoute
+1088, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#TertiaryRoute
+597, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#SecondaryRoute
+500, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Shop
+483, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#PrimaryRoute
+102, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bank
+98, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Supermarket
+49, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Kiosk
+46, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Clothes
+31, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Hairdresser
+31, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bakery
+28, http://www.w3.org/2002/07/owl#DatatypeProperty
+20, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Florist
+17, http://www.w3.org/2002/07/owl#Class
+16, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Chemist
+15, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BicycleShop
+11, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#ShoeShop
+10, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Butcher
+4, http://www.w3.org/2002/07/owl#ObjectProperty
+Object Role Assertions:
+37007, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#connected
+35107, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isPartOf
+1408, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isLocatedNext
+102, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#hasBankOperator
+Data Role Assertions:
+36036, http://www.georss.org/georssl/point
+6620, http://www.georss.org/georssl/line
+929, http://www.opengis.net/gml/featurename

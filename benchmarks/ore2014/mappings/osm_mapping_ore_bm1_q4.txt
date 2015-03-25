@@ -1,0 +1,64 @@
+CONNECTION osm1: host=localhost port=5432 dbname=osm_vienna user=postgres password=ps
+
+FILE f1: name=./benchmarks/ore2014/instances/vienna/bm1_rel_intersect.owl
+FILE f2: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next50_4.owl
+FILE f3: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next100_4.owl
+FILE f4: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next250_4.owl
+FILE f5: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next500_4.owl
+
+SCRIPT s1: ./tools/spatialRelationsDatabaseReader.py
+
+CONST c0: @prefix : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c1: @prefix tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#> .
+CONST c2: @prefix tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c3: @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+CONST c4: @prefix owl: <http://www.w3.org/2002/07/owl#> .
+CONST c5: @prefix dc: <http://purl.org/dc/elements/1.1/> .
+CONST c6: @prefix gml: <http://www.opengis.net/gml/> .
+CONST c7: @prefix  geo: <http://www.georss.org/georssl/> .
+CONST c8: @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+CONST c9: gml:featurename rdf:type owl:DatatypeProperty . geo:point rdf:type owl:DatatypeProperty . geo:line rdf:type owl:DatatypeProperty . geo:polygon rdf:type owl:DatatypeProperty .
+CONST c10: tuwt:isLocatedIntersect rdf:type owl:ObjectProperty .
+CONST c11: tuwt:isLocatedNext rdf:type owl:ObjectProperty .
+
+mappingId A0a
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10
+target f1 {1}
+
+mappingId A0b
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f2 {1}
+
+mappingId A0c
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f3 {1}
+
+mappingId A0d
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f4 {1}
+
+mappingId A0e
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f5 {1}
+
+mappingId A1
+source s1 "osm1" "intersects" "planet_osm_polygon" "planet_osm_polygon" "(t1.landuse IS NOT NULL or t1.leisure IS NOT NULL) AND t1.osm_id > 0" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) AND t2.osm_id > 0"
+target f3 tuwti:{1} tuwt:isLocatedIntersect tuwti:{2} .
+
+mappingId A2
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_polygon" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL) AND t1.osm_id > 0" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) AND t2.osm_id > 0" "0.0005"
+target f2 tuwti:{1} tuwt:isLocatedNext tuwti:{2} .
+
+mappingId A3
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_polygon" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL) AND t1.osm_id > 0" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) AND t2.osm_id > 0" "0.001"
+target f3 tuwti:{1} tuwt:isLocatedNext tuwti:{2} .
+
+mappingId A4
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_polygon" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL) AND t1.osm_id > 0" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) AND t2.osm_id > 0" "0.0025"
+target f4 tuwti:{1} tuwt:isLocatedNext tuwti:{2} .
+
+mappingId A5
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_polygon" "(t1.amenity IS NOT NULL or t1.shop IS NOT NULL) AND t1.osm_id > 0" "(t2.landuse IS NOT NULL or t2.leisure IS NOT NULL) AND t2.osm_id > 0" "0.005"
+target f5 tuwti:{1} tuwt:isLocatedNext tuwti:{2} .
+

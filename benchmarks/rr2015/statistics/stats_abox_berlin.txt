@@ -1,0 +1,21 @@
+ABox Statistics for /Users/patrik/Desktop/OSM_Data/berlin_rr_bm1/
+Concept Assertions:
+252250, http://www.w3.org/2002/07/owl#NamedIndividual
+204342, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Point
+31782, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#ResidentialRoute
+8232, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#SecondaryRoute
+4516, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#TertiaryRoute
+2790, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#PrimaryRoute
+588, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bank
+24, http://www.w3.org/2002/07/owl#DatatypeProperty
+6, http://www.w3.org/2002/07/owl#Class
+4, http://www.w3.org/2002/07/owl#ObjectProperty
+Object Role Assertions:
+226551, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#connected
+204342, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isPartOf
+81913, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isLocatedNext
+588, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#hasBankOperator
+Data Role Assertions:
+204930, http://www.georss.org/georssl/point
+47320, http://www.georss.org/georssl/line
+588, http://www.opengis.net/gml/featurename

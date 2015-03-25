@@ -1,0 +1,6 @@
+
+con(X,Y) :- edge(X,Y).
+con(X,Y) :- con(X,U), con(U,Y).
+
+
+

@@ -1,0 +1,37 @@
+CONNECTION osm1: host=localhost port=5432 dbname=osm_vienna user=postgres password=secret
+
+FILE file_streets: name=./benchmarks/rr2015/instances/vienna/bm1_streets.owl
+FILE file_EDB: name=./benchmarks/rr2015/instances/vienna/bm1_dlv_edb.dlv
+FILE file_IDB: name=./benchmarks/rr2015/instances/vienna/bm1_dlv_idb.dlv
+FILE file_edges_tc: name=./benchmarks/rr2015/instances/vienna/bm1_tc.owl
+
+SCRIPT script_graph: ./tools/streetGraphReader.py
+# For this script DLV (http://www.dlvsystem.com/)
+SCRIPT script_datalog: ./tools/evaluateDLV.py
+SCRIPT transformOSM: ./tools/transformOSM.py
+#SCRIPT dropSome: ./tools/transformOSMRandom.py
+
+CONST c0: @prefix : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c1: @prefix tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#> .
+CONST c2: @prefix tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c3: @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+CONST c4: @prefix owl: <http://www.w3.org/2002/07/owl#> .
+CONST c5: @prefix dc: <http://purl.org/dc/elements/1.1/> .
+CONST c6: @prefix gml: <http://www.opengis.net/gml/> .
+CONST c7: @prefix  geo: <http://www.georss.org/georssl/> .
+CONST c8: @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+CONST c13: tuwt:connected rdf:type owl:ObjectProperty .
+
+mappingId A0a
+source const c1 c2 c3 c4 c5 c6 c7 c8 c13
+target file_edges_tc {1}
+
+mappingId A1
+source script_graph "edges" "file_streets"
+target file_EDB edge(n{1}, n{2}).
+
+mappingId A2
+source script_datalog "file_EDB" "file_IDB"   # Missing Filter "con,"
+target file_edges_tc  :{1} tuwt:connected :{2} .
+
+

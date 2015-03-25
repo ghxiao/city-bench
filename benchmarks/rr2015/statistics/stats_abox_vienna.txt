@@ -1,0 +1,39 @@
+ABox Statistics for /Users/patrik/Desktop/OSM_Data/vienna_rr_bm1/
+Processing: bm1_banks.owl
+Processing: bm1_graph_edges.owl
+Processing: bm1_graph_nodes.owl
+Processing: bm1_relhasOp.owl
+Processing: bm1_relNext.owl
+Processing: bm1_shops.owl
+Processing: bm1_streets.owl
+Concept Assertions:
+237888, http://www.w3.org/2002/07/owl#NamedIndividual
+191220, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Point
+29392, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#ResidentialRoute
+4087, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#SecondaryRoute
+3973, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#PrimaryRoute
+3463, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#TertiaryRoute
+2366, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Shop
+799, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Supermarket
+494, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bank
+468, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Clothes
+376, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Hairdresser
+353, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bakery
+250, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Chemist
+183, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Kiosk
+151, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BicycleShop
+130, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#ShoeShop
+125, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Florist
+58, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Butcher
+20, http://www.w3.org/2002/07/owl#DatatypeProperty
+17, http://www.w3.org/2002/07/owl#Class
+4, http://www.w3.org/2002/07/owl#ObjectProperty
+Object Role Assertions:
+207429, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#connected
+191220, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isPartOf
+23151, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isLocatedNext
+494, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#hasBankOperator
+Data Role Assertions:
+196973, http://www.georss.org/georssl/point
+40915, http://www.georss.org/georssl/line
+5753, http://www.opengis.net/gml/featurename

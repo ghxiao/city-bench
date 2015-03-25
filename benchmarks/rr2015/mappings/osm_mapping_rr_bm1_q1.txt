@@ -1,0 +1,79 @@
+CONNECTION osm1: host=localhost port=5432 dbname=osm_vienna user=postgres password=ps
+
+FILE file_nodes: name=./benchmarks/rr2015/instances/vienna/bm1_graph_nodes.owl
+FILE file_shops: name=./benchmarks/rr2015/instances/vienna/bm1_shops.owl
+FILE file_next: name=./benchmarks/rr2015/instances/vienna/bm1_relNext.owl
+FILE file_streets: name=./benchmarks/rr2015/instances/vienna/bm1_streets.owl
+
+
+SCRIPT script_graph: ./tools/streetGraphReader.py
+SCRIPT script_mapping: ./tools/transformOSMConcepts.py
+SCRIPT script_spatial: ./tools/spatialRelationsReader.py
+
+CONST c0: @prefix : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c1: @prefix tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#> .
+CONST c2: @prefix tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c3: @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+CONST c4: @prefix owl: <http://www.w3.org/2002/07/owl#> .
+CONST c5: @prefix dc: <http://purl.org/dc/elements/1.1/> .
+CONST c6: @prefix gml: <http://www.opengis.net/gml/> .
+CONST c7: @prefix  geo: <http://www.georss.org/georssl/> .
+CONST c8: @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+CONST c9: gml:featurename rdf:type owl:DatatypeProperty . geo:point rdf:type owl:DatatypeProperty . geo:line rdf:type owl:DatatypeProperty . geo:polygon rdf:type owl:DatatypeProperty .
+CONST c11: tuwt:Shop rdf:type owl:Class . tuwt:Supermarket rdf:type owl:Class . tuwt:Bakery rdf:type owl:Class . tuwt:Hairdresser rdf:type owl:Class .
+CONST c12: tuwt:ShoeShop rdf:type owl:Class . tuwt:Chemist rdf:type owl:Class . tuwt:Butcher rdf:type owl:Class . tuwt:Clothes rdf:type owl:Class .
+CONST c13: tuwt:Kiosk rdf:type owl:Class . tuwt:BicycleShop rdf:type owl:Class . tuwt:Florist rdf:type owl:Class .
+
+CONST c14: tuwt:TertiaryRoute rdf:type owl:Class . tuwt:SecondaryRoute rdf:type owl:Class . tuwt:PrimaryRoute rdf:type owl:Class .
+CONST c15: tuwt:ResidentialRoute rdf:type owl:Class .
+CONST c16: tuwt:isLocatedNext rdf:type owl:ObjectProperty .
+CONST c17: tuwt:Point rdf:type owl:Class . tuwt:isPartOf rdf:type owl:ObjectProperty .
+
+mappingId A0a
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c17
+target file_nodes {1}
+
+mappingId A0b
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11 c12 c13
+target file_shops {1}
+
+mappingId A0c
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c16
+target file_next {1}
+
+
+mappingId A0d
+source const c1 c2 c3 c4 c5 c6 c7 c8 c9 c14 c15
+target file_streets  {1}
+
+
+mappingId A1
+source osm1  SELECT osm_id, name, shop, ST_AsEWKT(way) AS geo FROM planet_osm_point WHERE shop IS NOT NULL AND name IS NOT NULL AND osm_id > 0
+transform script_mapping "shop" "3"
+target file_shops :{1} rdf:type tuwt:{3}, owl:NamedIndividual;
+           gml:featurename "{2}"^^xsd:string;
+           geo:point "{4}"^^xsd:string .
+
+mappingId A2
+source osm1  SELECT osm_id, highway, ST_AsEWKT(way) from planet_osm_line where osm_id > 0 and highway IN ('residential', 'secondary', 'primary', 'tertiary')
+transform script_mapping "highway" "2"
+target file_strees :{1} rdf:type tuwt:{2}, owl:NamedIndividual;
+geo:line "{3}"^^xsd:string .
+		   
+mappingId A3
+source script_graph "nodes" "file_streets"
+target file_nodes :{1} rdf:type tuwt:Point, owl:NamedIndividual;
+                   geo:point "{3}"^^xsd:string;
+                   tuwt:isPartOf {2}.
+
+# Here is a bit of tricking is involved, as we use the temporary table temp_point to speed up the next to shop/supemarket calculation 
+mappingId A4
+source script_graph "nodes" "file_streets"
+target osm1 INSERT INTO temp_point (osm_id, way) Values('{1}', '{3}')
+
+mappingId A5
+source script_spatial "osm1" "next" "planet_osm_point" "temp_point" "(t1.shop = 'supermarket' or t1.shop IS NOT NULL)" "t2.osm_id IS NOT NULL" "0.001"
+target file_next :{1} tuwt:isLocatedNext :{2} .
+
+	

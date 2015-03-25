@@ -1,0 +1,24 @@
+#q3(x, y, z) :- Amenity(x), hasQualitativeValue(x, u), Cuisine(u), next(x, y), Shop(y), contains(z, x), Leisure(z)
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+PREFIX tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#>
+PREFIX tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX gml: <http://www.opengis.net/gml/>
+PREFIX geo: <http://www.georss.org/georssl/>
+PREFIX : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#>
+
+SELECT ?x ?y ?z
+WHERE { 
+    ?x a tuwt:Amenity . 
+    ?x tuwt:hasQualitativeValue ?u .
+    ?u a tuwt:Cuisine .
+    ?x tuwt:isLocatedNext ?y .
+    ?y a tuwt:Shop .
+    ?z tuwt:isLocatedContain ?x .
+    ?z a tuwt:Leisure .
+}

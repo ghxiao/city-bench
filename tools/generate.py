@@ -312,7 +312,9 @@ def main(argv):
     # Parse command line input
     parser = optparse.OptionParser()
     parser.add_option('--mappingFile', action="store", dest="mapFile", default="")
+    parser.add_option('-m', action="store", dest="mapFile", default="")
     parser.add_option('--verbose', action="store_true", dest="verbose", default=False)
+    parser.add_option('-v', action="store_true", dest="verbose", default=False)
     (options, args) = parser.parse_args()
 
     # Read config file

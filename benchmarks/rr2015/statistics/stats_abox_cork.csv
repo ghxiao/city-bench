@@ -1,0 +1,32 @@
+ABox Statistics for /Users/patrik/Desktop/OSM_Data/cork5/
+Concept Assertions:
+52243, http://www.w3.org/2002/07/owl#NamedIndividual
+45453, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Point
+5370, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#ResidentialRoute
+540, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#SecondaryRoute
+535, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#TertiaryRoute
+190, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Shop
+36, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bank
+31, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#PrimaryRoute
+31, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Supermarket
+28, http://www.w3.org/2002/07/owl#DatatypeProperty
+23, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Clothes
+17, http://www.w3.org/2002/07/owl#Class
+13, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#BicycleShop
+10, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Hairdresser
+5, http://www.w3.org/2002/07/owl#ObjectProperty
+4, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Florist
+3, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Butcher
+2, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Bakery
+1, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#ShoeShop
+1, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#Chemist
+Object Role Assertions:
+2000000, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#path
+46013, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#connected
+45453, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isPartOf
+750, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#isLocatedNext
+36, http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#hasBankOperator
+Data Role Assertions:
+45767, http://www.georss.org/georssl/point
+6476, http://www.georss.org/georssl/line
+314, http://www.opengis.net/gml/featurename

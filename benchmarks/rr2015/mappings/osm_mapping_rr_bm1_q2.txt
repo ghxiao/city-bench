@@ -1,0 +1,75 @@
+CONNECTION osm1: host=localhost port=5432 dbname=osm_vienna user=postgres password=ps
+
+FILE file_nodes: name=./benchmarks/rr2015/instances/vienna/bm1_graph_nodes.owl
+FILE file_streets: name=./benchmarks/rr2015/instances/vienna/bm1_streets.owl
+FILE file_edges: name=./benchmarks/rr2015/instances/vienna/bm1_graph_edges.owl
+FILE file_path: name=./benchmarks/rr2015/instances/vienna/bm1_relPath.owl
+FILE file_banks: name=./benchmarks/rr2015/instances/vienna/bm1_banks.owl
+FILE file_hasOperator: name=./benchmarks/rr2015/instances/vienna/bm1_relhasOp.owl
+FILE file_next: name=./benchmarks/rr2015/instances/vienna/bm1_relNext.owl
+
+SCRIPT script_graph: ./tools/streetGraphReader.py
+SCRIPT script_mapping: ./tools/transformOSMConcepts.py
+SCRIPT script_spatial: ./tools/spatialRelationsReader.py
+
+CONST c0: @prefix : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c1: @prefix tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#> .
+CONST c2: @prefix tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c3: @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+CONST c4: @prefix owl: <http://www.w3.org/2002/07/owl#> .
+CONST c5: @prefix dc: <http://purl.org/dc/elements/1.1/> .
+CONST c6: @prefix gml: <http://www.opengis.net/gml/> .
+CONST c7: @prefix  geo: <http://www.georss.org/georssl/> .
+CONST c8: @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+CONST c9: gml:featurename rdf:type owl:DatatypeProperty . geo:point rdf:type owl:DatatypeProperty . geo:line rdf:type owl:DatatypeProperty . geo:polygon rdf:type owl:DatatypeProperty .
+CONST c10: tuwt:Bank rdf:type owl:Class .
+
+CONST c13: tuwt:connected rdf:type owl:ObjectProperty .
+CONST c14: tuwt:hasBankOperator rdf:type owl:ObjectProperty .
+CONST c15: tuwt:BankMediumOp rdf:type owl:Class . tuwt:BankSmallOp rdf:type owl:Class . tuwt:BankLargOp rdf:type owl:Class .
+CONST c16: tuwt:isLocatedNext rdf:type owl:ObjectProperty .
+CONST c17: tuwt:Point rdf:type owl:Class . tuwt:isPartOf rdf:type owl:ObjectProperty .
+
+mappingId A0a
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c14 c15
+target file_banks {1}
+
+mappingId A0b
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c14 c15
+target file_hasOperator {1}
+
+mappingId A0d
+source const c1 c2 c3 c4 c5 c6 c7 c8 c9 c13
+target file_edges  {1}
+
+mappingId A0f
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c16
+target file_next {1}
+
+mappingId A1
+source osm1  SELECT osm_id, name, ST_AsEWKT(way) AS geo FROM planet_osm_point WHERE amenity = 'bank' AND name IS NOT NULL AND osm_id > 0
+target file_banks  :{1} rdf:type tuwt:Bank, owl:NamedIndividual;
+           gml:featurename "{2}"^^xsd:string;
+           geo:point "{3}"^^xsd:string .
+
+mappingId A2
+source osm1  SELECT osm_id, name FROM planet_osm_point WHERE amenity = 'bank' AND name IS NOT NULL AND osm_id > 0
+transform script_mapping "bank_role" "2"
+target file_hasOperator :{1} tuwt:hasBankOperator tuwti:{2} .
+
+
+mappingId A3
+source script_graph "edges" "file_streets"
+target file_edges  :{1} tuwt:connected :{2} .
+					
+					
+# Here is a bit of tricking is involved, as we use the temporary table temp_point to speed up the next to shop/supemarket calculation (temp_point from previous mapping)
+
+mappingId A4
+source script_spatial "osm1" "next" "planet_osm_point" "temp_point" "(t1.amenity = 'bank' or t1.amenity IS NOT NULL)" "t2.osm_id IS NOT NULL" "0.001"
+target file_next :{1} tuwt:isLocatedNext :{2} .
+
+
+
+	

@@ -1,0 +1,66 @@
+CONNECTION osm1: host=localhost port=5432 dbname=osm_vienna user=postgres password=ps
+
+FILE f1: name=./benchmarks/ore2014/instances/vienna/bm1_relhasCuisine.owl
+FILE f2: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next50_3.owl
+FILE f3: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next100_3.owl
+FILE f4: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next250_3.owl
+FILE f5: name=./benchmarks/ore2014/instances/vienna/bm1_rel_next500_3.owl
+
+SCRIPT s1: ./tools/spatialRelationsDatabaseReader.py
+SCRIPT s2: ./tools/transformOSMConcepts.py
+
+CONST c0: @prefix : <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c1: @prefix tuwt: <http://www.kr.tuwien.ac.at/myits/geoconcepts/terms#> .
+CONST c2: @prefix tuwti: <http://www.kr.tuwien.ac.at/myits/geoconcepts/items#> .
+CONST c3: @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+CONST c4: @prefix owl: <http://www.w3.org/2002/07/owl#> .
+CONST c5: @prefix dc: <http://purl.org/dc/elements/1.1/> .
+CONST c6: @prefix gml: <http://www.opengis.net/gml/> .
+CONST c7: @prefix  geo: <http://www.georss.org/georssl/> .
+CONST c8: @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+CONST c9: gml:featurename rdf:type owl:DatatypeProperty . geo:point rdf:type owl:DatatypeProperty . geo:line rdf:type owl:DatatypeProperty . geo:polygon rdf:type owl:DatatypeProperty .
+CONST c10: tuwt:hasCuisine rdf:type owl:ObjectProperty .
+CONST c11: tuwt:isLocatedNext rdf:type owl:ObjectProperty .
+
+mappingId A0a
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10
+target f1 {1}
+
+mappingId A0b
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f2 {1}
+
+mappingId A0c
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f3 {1}
+
+mappingId A0d
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f4 {1}
+
+mappingId A0e
+source const c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c11
+target f5 {1}
+
+mappingId A1
+source osm1  SELECT osm_id, name FROM planet_osm_point WHERE amenity = 'restaurant' AND name IS NOT NULL AND osm_id > 0
+transform s2 "restaurant_role" "2"
+target f1  tuwti:{1} tuwt:hasCuisine tuwti:{2} .
+
+mappingId A2
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.shop IS NOT NULL AND t1.osm_id > 0" "t2.amenity IS NOT NULL AND t2.osm_id > 0" "0.0005"
+target f2 tuwti:{2} tuwt:isLocatedNext tuwti:{1} .
+
+mappingId A3
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.shop IS NOT NULL AND t1.osm_id > 0" "t2.amenity IS NOT NULL AND t2.osm_id > 0" "0.001"
+target f3 tuwti:{2} tuwt:isLocatedNext tuwti:{1} .
+
+mappingId A4
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.shop IS NOT NULL AND t1.osm_id > 0" "t2.amenity IS NOT NULL AND t2.osm_id > 0" "0.0025"
+target f4 tuwti:{2} tuwt:isLocatedNext tuwti:{1} .
+
+mappingId A5
+source s1 "osm1" "next" "planet_osm_point" "planet_osm_point" "t1.shop IS NOT NULL AND t1.osm_id > 0" "t2.amenity IS NOT NULL AND t2.osm_id > 0" "0.005"
+target f5 tuwti:{2} tuwt:isLocatedNext tuwti:{1} .
+
